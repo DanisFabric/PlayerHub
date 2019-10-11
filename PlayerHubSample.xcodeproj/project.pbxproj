@@ -15,6 +15,9 @@
 		B727A129234F0C820026B2C1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B727A127234F0C820026B2C1 /* LaunchScreen.storyboard */; };
 		B727A133234F0CA20026B2C1 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = B727A132234F0CA20026B2C1 /* Player.swift */; };
 		B727A135234F0CAD0026B2C1 /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B727A134234F0CAD0026B2C1 /* PlayerView.swift */; };
+		B727A138235024620026B2C1 /* NormalPlayerBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = B727A137235024620026B2C1 /* NormalPlayerBox.swift */; };
+		B727A13B235028760026B2C1 /* NormalPlayerBoxControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B727A13A235028760026B2C1 /* NormalPlayerBoxControlView.swift */; };
+		B727A13E235029BC0026B2C1 /* PlayerSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B727A13D235029BC0026B2C1 /* PlayerSlider.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +31,9 @@
 		B727A12A234F0C820026B2C1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B727A132234F0CA20026B2C1 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		B727A134234F0CAD0026B2C1 /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
+		B727A137235024620026B2C1 /* NormalPlayerBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NormalPlayerBox.swift; sourceTree = "<group>"; };
+		B727A13A235028760026B2C1 /* NormalPlayerBoxControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NormalPlayerBoxControlView.swift; sourceTree = "<group>"; };
+		B727A13D235029BC0026B2C1 /* PlayerSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerSlider.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +81,7 @@
 		B727A130234F0C890026B2C1 /* PlayerHub */ = {
 			isa = PBXGroup;
 			children = (
+				B727A136235024340026B2C1 /* UI */,
 				B727A131234F0C900026B2C1 /* Player */,
 			);
 			path = PlayerHub;
@@ -87,6 +94,32 @@
 				B727A134234F0CAD0026B2C1 /* PlayerView.swift */,
 			);
 			path = Player;
+			sourceTree = "<group>";
+		};
+		B727A136235024340026B2C1 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				B727A13C2350299B0026B2C1 /* Kit */,
+				B727A139235028540026B2C1 /* Normal */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		B727A139235028540026B2C1 /* Normal */ = {
+			isa = PBXGroup;
+			children = (
+				B727A137235024620026B2C1 /* NormalPlayerBox.swift */,
+				B727A13A235028760026B2C1 /* NormalPlayerBoxControlView.swift */,
+			);
+			path = Normal;
+			sourceTree = "<group>";
+		};
+		B727A13C2350299B0026B2C1 /* Kit */ = {
+			isa = PBXGroup;
+			children = (
+				B727A13D235029BC0026B2C1 /* PlayerSlider.swift */,
+			);
+			path = Kit;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -162,7 +195,10 @@
 			files = (
 				B727A133234F0CA20026B2C1 /* Player.swift in Sources */,
 				B727A121234F0C800026B2C1 /* ViewController.swift in Sources */,
+				B727A138235024620026B2C1 /* NormalPlayerBox.swift in Sources */,
+				B727A13B235028760026B2C1 /* NormalPlayerBoxControlView.swift in Sources */,
 				B727A11D234F0C800026B2C1 /* AppDelegate.swift in Sources */,
+				B727A13E235029BC0026B2C1 /* PlayerSlider.swift in Sources */,
 				B727A135234F0CAD0026B2C1 /* PlayerView.swift in Sources */,
 				B727A11F234F0C800026B2C1 /* SceneDelegate.swift in Sources */,
 			);

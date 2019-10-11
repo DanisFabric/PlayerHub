@@ -11,6 +11,8 @@ import UIKit
 class ViewController: UIViewController {
 
     @IBOutlet weak var videoView: PlayerView!
+    @IBOutlet weak var slider: PlayerSlider!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -24,6 +26,13 @@ class ViewController: UIViewController {
         videoView.player.bufferedDurationDidChangeHandler = { start, duration in
             print(start, start + duration)
         }
+        
+        slider.bufferedProgress = 0.4
+        slider.playedProgress = 0.2
+        
+        slider.addTarget(self, action: #selector(onSliderChanged(slider:)), for: .valueChanged)
+        slider.addTarget(self, action: #selector(onSliderTouchUp(slider:)), for: .touchUpInside)
+        slider.addTarget(self, action: #selector(onSliderTouchUp(slider:)), for: .touchUpOutside)
     }
 
     @IBAction func onStart(_ sender: Any) {
@@ -38,6 +47,14 @@ class ViewController: UIViewController {
     }
     @IBAction func onPause(_ sender: Any) {
         videoView.player.pause()
+    }
+    
+    @objc private func onSliderChanged(slider: PlayerSlider) {
+        print("value changed ---> \(slider.playedProgress)")
+    }
+    
+    @objc private func onSliderTouchUp(slider: PlayerSlider) {
+        print("touch up =======> \(slider.playedProgress)")
     }
 }
 

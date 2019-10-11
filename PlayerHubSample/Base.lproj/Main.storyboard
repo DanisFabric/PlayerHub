@@ -42,6 +42,13 @@
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jqv-YC-TSC" customClass="PlayerView" customModule="PlayerHubSample" customModuleProvider="target">
                                 <rect key="frame" x="49" y="211" width="316" height="221"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cHg-uR-uMK" customClass="PlayerSlider" customModule="PlayerHubSample" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="181" width="316" height="40"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="1" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </view>
+                                </subviews>
                                 <color key="backgroundColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                             </view>
                         </subviews>
@@ -49,6 +56,7 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="slider" destination="cHg-uR-uMK" id="Yri-ne-4qj"/>
                         <outlet property="videoView" destination="Jqv-YC-TSC" id="3hu-6Q-9oy"/>
                     </connections>
                 </viewController>
