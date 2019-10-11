@@ -93,7 +93,7 @@ class PlayerSlider: UIControl {
         }
     }
     
-    var thumbHighlightedColor = UIColor.white {
+    var thumbHighlightedColor = UIColor(red: 0.8, green: 0.8, blue: 0.8, alpha: 1) {
         didSet {
             thumbLayer.highlightedColor = thumbHighlightedColor
             
@@ -198,7 +198,6 @@ class PlayerSlider: UIControl {
         
         previousTouchPoint = currentPoint
 
-        
         sendActions(for: .valueChanged)
         
         return true
