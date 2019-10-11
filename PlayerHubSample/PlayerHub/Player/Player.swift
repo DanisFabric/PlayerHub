@@ -27,7 +27,7 @@ class Player: NSObject {
     
     var statusDidChangeHandler: ((Status) -> Void)?
     var playedDurationDidChangeHandler: ((TimeInterval, TimeInterval) -> Void)?
-    var bufferedDurationDidChangeHandler: ((TimeInterval, TimeInterval) -> Void)?
+    var bufferedDurationDidChangeHandler: ((TimeInterval, TimeInterval, TimeInterval) -> Void)?
     
     private let player: AVPlayer = {
         let temp = AVPlayer()
@@ -164,7 +164,7 @@ extension Player {
         }
         let ob2 = currentItem.observe(\.loadedTimeRanges, options: .new) { [unowned self] (item, change) in
             if let range = item.loadedTimeRanges.first as? CMTimeRange {
-                self.bufferedDurationDidChangeHandler?(range.start.seconds, range.duration.seconds)
+                self.bufferedDurationDidChangeHandler?(range.start.seconds, range.duration.seconds, self.duration)
             }
         }
         

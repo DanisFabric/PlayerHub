@@ -9,7 +9,7 @@
 import UIKit
 
 extension PlayerSlider {
-    private class TrackLayer: CAShapeLayer {
+    private class TrackLayer: CALayer {
         var trackColor = UIColor.white
         
         override func draw(in ctx: CGContext) {
@@ -39,7 +39,6 @@ extension PlayerSlider {
             } else {
                 ctx.setFillColor(normalColor.cgColor)
             }
-            
             ctx.addPath(path.cgPath)
             ctx.fillPath()
         }
@@ -101,7 +100,13 @@ class PlayerSlider: UIControl {
         }
     }
     
-    var trackHeight: CGFloat = 3 {
+    var thumbBorderColor = UIColor.black {
+        didSet {
+            
+        }
+    }
+    
+    var trackHeight: CGFloat = 2 {
         didSet {
             updateLayerFrames()
         }
@@ -143,6 +148,11 @@ class PlayerSlider: UIControl {
         thumbLayer.normalColor = thumbNormalColor
         thumbLayer.highlightedColor = thumbHighlightedColor
         
+        trackLayer.contentsScale = UIScreen.main.scale
+        bufferedTrackLayer.contentsScale = UIScreen.main.scale
+        playedTrackLayer.contentsScale = UIScreen.main.scale
+        thumbLayer.contentsScale = UIScreen.main.scale
+        
         layer.addSublayer(trackLayer)
         layer.addSublayer(bufferedTrackLayer)
         layer.addSublayer(playedTrackLayer)
@@ -158,6 +168,7 @@ class PlayerSlider: UIControl {
     private func updateLayerFrames() {
         CATransaction.begin()
         CATransaction.setDisableActions(true)
+        
         trackLayer.frame = CGRect(x: startX, y: (bounds.height - trackHeight) / 2, width: trackWidth, height: trackHeight)
         
         bufferedTrackLayer.frame = CGRect(x: trackLayer.frame.minX, y: trackLayer.frame.minY, width: trackLayer.frame.width * CGFloat(bufferedProgress), height: trackLayer.frame.height)

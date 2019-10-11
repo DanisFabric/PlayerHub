@@ -20,15 +20,12 @@ class ViewController: UIViewController {
         videoView.player.statusDidChangeHandler = { status in
             print(status)
         }
-        videoView.player.playedDurationDidChangeHandler = { played, total in
-//            print(String(format: "%.2f", played / total))
+        videoView.player.playedDurationDidChangeHandler = { [unowned self] played, total in
+            self.slider.playedProgress = played / total
         }
-        videoView.player.bufferedDurationDidChangeHandler = { start, duration in
-            print(start, start + duration)
+        videoView.player.bufferedDurationDidChangeHandler = { [unowned self] start, loaded, totalDuration in
+            self.slider.bufferedProgress = (start + loaded) / totalDuration
         }
-        
-        slider.bufferedProgress = 0.4
-        slider.playedProgress = 0.2
         
         slider.addTarget(self, action: #selector(onSliderChanged(slider:)), for: .valueChanged)
         slider.addTarget(self, action: #selector(onSliderTouchUp(slider:)), for: .touchUpInside)
