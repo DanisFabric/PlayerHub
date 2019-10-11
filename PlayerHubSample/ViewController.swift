@@ -30,6 +30,7 @@ class ViewController: UIViewController {
         slider.addTarget(self, action: #selector(onSliderChanged(slider:)), for: .valueChanged)
         slider.addTarget(self, action: #selector(onSliderTouchUp(slider:)), for: .touchUpInside)
         slider.addTarget(self, action: #selector(onSliderTouchUp(slider:)), for: .touchUpOutside)
+        slider.addTarget(self, action: #selector(onSliderTouchDown(slider:)), for: .touchDown)
     }
 
     @IBAction func onStart(_ sender: Any) {
@@ -47,11 +48,19 @@ class ViewController: UIViewController {
     }
     
     @objc private func onSliderChanged(slider: PlayerSlider) {
-        print("value changed ---> \(slider.playedProgress)")
+        let toTime = videoView.player.duration * slider.playedProgress
+        
     }
     
     @objc private func onSliderTouchUp(slider: PlayerSlider) {
-        print("touch up =======> \(slider.playedProgress)")
+        let toTime = videoView.player.duration * slider.playedProgress
+        
+        videoView.player.seek(to: toTime)
+        videoView.player.play()
+    }
+    
+    @objc private func onSliderTouchDown(slider: PlayerSlider) {
+        videoView.player.pause()
     }
 }
 
