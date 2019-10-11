@@ -19,13 +19,17 @@ class ViewController: UIViewController {
             print(status)
         }
         videoView.player.playedDurationDidChangeHandler = { played, total in
-            print(String(format: "%.2f", played / total))
+//            print(String(format: "%.2f", played / total))
         }
-        
+        videoView.player.bufferedDurationDidChangeHandler = { start, duration in
+            print(start, start + duration)
+        }
     }
 
     @IBAction func onStart(_ sender: Any) {
-        videoView.player.replace(with: URL(string: "http://flv3.bn.netease.com/tvmrepo/2018/6/9/R/EDJTRAD9R/SD/EDJTRAD9R-mobile.mp4")!)
+        let longVideo = "https://www.apple.com/105/media/us/iphone-x/2017/01df5b43-28e4-4848-bf20-490c34a926a7/films/feature/iphone-x-feature-tpl-cc-us-20170912_1280x720h.mp4"
+        let shortVideo = "http://flv3.bn.netease.com/tvmrepo/2018/6/9/R/EDJTRAD9R/SD/EDJTRAD9R-mobile.mp4"
+        videoView.player.replace(with: URL(string: longVideo)!)
         videoView.player.play()
     }
     
