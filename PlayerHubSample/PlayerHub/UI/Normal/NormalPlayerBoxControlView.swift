@@ -132,7 +132,8 @@ class NormalPlayerControlView: UIView {
     }()
     
     private let indicatorView: UIActivityIndicatorView = {
-        let temp = UIActivityIndicatorView(style: .medium)
+        let temp = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.large)
+        temp.color = UIColor.white
         temp.hidesWhenStopped = true
         
         return temp
@@ -231,11 +232,11 @@ extension NormalPlayerControlView {
         }
         
         if isPlayable {
-            playButton.isHidden = false
-            
             if isBuffering {
+                playButton.isHidden = true
                 indicatorView.startAnimating()
             } else {
+                playButton.isHidden = false
                 indicatorView.stopAnimating()
                 if isPlaying {
                     playButton.isSelected = true

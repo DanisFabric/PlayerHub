@@ -31,7 +31,7 @@ class Player: NSObject {
     
     private let player: AVPlayer = {
         let temp = AVPlayer()
-        temp.automaticallyWaitsToMinimizeStalling = false
+        temp.automaticallyWaitsToMinimizeStalling = true
         
         return temp
     }()
@@ -47,6 +47,8 @@ class Player: NSObject {
         didSet {
             if status != oldValue {
                 statusDidChangeHandler?(status)
+                
+                print("status changed -> \(status)")
                 
                 if status == .end && loopMode == .always {
                     seek(to: 0)
@@ -114,7 +116,6 @@ extension Player {
     }
     
     func seek(to time: TimeInterval) {
-        print("seek -> \(time)")
         player.seek(to: CMTime(seconds: time, preferredTimescale: CMTimeScale(NSEC_PER_SEC)), toleranceBefore: .zero, toleranceAfter: .zero)
     }
 }
@@ -145,8 +146,6 @@ extension Player {
             
             self.duration = total
             self.playedDuration = time.seconds
-            
-            print("current -> \(self.playedDuration)")
         })
     }
     
@@ -224,3 +223,4 @@ extension Player {
 extension Player {
 
 }
+    

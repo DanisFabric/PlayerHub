@@ -13,6 +13,10 @@ class NormalPlayerBox: UIView {
     
     let controlView = NormalPlayerControlView()
     
+    deinit {
+        print("deinit")
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -38,7 +42,7 @@ class NormalPlayerBox: UIView {
             self.controlView.configure(playedDuration: played)
         }
         
-        playerView.player.bufferedDurationDidChangeHandler = { start, buffered, total in
+        playerView.player.bufferedDurationDidChangeHandler = { [unowned self] start, buffered, total in
             self.controlView.configure(bufferedDuration: start + buffered)
         }
         

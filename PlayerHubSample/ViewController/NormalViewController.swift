@@ -11,6 +11,10 @@ import UIKit
 class NormalViewController: UIViewController {
     
     let playerBox = NormalPlayerBox()
+    
+    deinit {
+        print("deinit")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
