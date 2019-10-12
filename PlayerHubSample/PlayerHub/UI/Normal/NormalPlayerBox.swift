@@ -42,12 +42,21 @@ class NormalPlayerBox: UIView {
             self.controlView.configure(bufferedDuration: start + buffered)
         }
         
+        
         controlView.didTouchToPlayHandler = { [unowned self] in
             self.playerView.player.play()
         }
         
         controlView.didTouchToPauseHandler = { [unowned self] in
             self.playerView.player.pause()
+        }
+        
+        controlView.didTouchWillSeekHandler = { [unowned self] in
+            self.playerView.player.pause()
+        }
+        
+        controlView.didTouchToSeekHandler = { [unowned self] playedDuration in
+            self.playerView.player.seek(to: playedDuration)
         }
     }
     

@@ -51,12 +51,16 @@ extension PlayerSlider {
 class PlayerSlider: UIControl {
     var playedProgress: Double = 0 {
         didSet {
-            updateLayerFrames()
+            executeInTransaction {
+                updatePlayedFrame()
+            }
         }
     }
     var bufferedProgress: Double = 0 {
         didSet {
-            updateLayerFrames()
+            executeInTransaction {
+                updateBufferedFrame()
+            }
         }
     }
     
@@ -108,13 +112,17 @@ class PlayerSlider: UIControl {
     
     var trackHeight: CGFloat = 2 {
         didSet {
-            updateLayerFrames()
+            executeInTransaction {
+                updateAllFrames()
+            }
         }
     }
     
     var thumbWidth: CGFloat = 12 {
         didSet {
-            updateLayerFrames()
+            executeInTransaction {
+                updateAllFrames()
+            }
         }
     }
     
@@ -162,28 +170,45 @@ class PlayerSlider: UIControl {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        updateLayerFrames()
+        executeInTransaction {
+            updateAllFrames()
+        }
     }
     
-    private func updateLayerFrames() {
+    
+    private func executeInTransaction(block: (() -> Void)) {
         CATransaction.begin()
         CATransaction.setDisableActions(true)
         
+        block()
+        
+        CATransaction.commit()
+    }
+    
+    private func updateAllFrames() {
+        updateTrackFrame()
+        updateBufferedFrame()
+        updatePlayedFrame()
+    }
+    
+    private func updateTrackFrame() {
         trackLayer.frame = CGRect(x: startX, y: (bounds.height - trackHeight) / 2, width: trackWidth, height: trackHeight)
-        
+        trackLayer.setNeedsDisplay()
+    }
+    
+    private func updateBufferedFrame() {
         bufferedTrackLayer.frame = CGRect(x: trackLayer.frame.minX, y: trackLayer.frame.minY, width: trackLayer.frame.width * CGFloat(bufferedProgress), height: trackLayer.frame.height)
+        bufferedTrackLayer.setNeedsDisplay()
         
+    }
+    
+    private func updatePlayedFrame() {
         playedTrackLayer.frame = CGRect(x: trackLayer.frame.minX, y: trackLayer.frame.minY, width: trackLayer.frame.width * CGFloat(playedProgress), height: trackLayer.frame.height)
-        
         thumbLayer.frame = CGRect(x: position(of: playedProgress) - thumbWidth / 2, y: (bounds.height - thumbWidth) / 2, width: thumbWidth, height: thumbWidth)
         
-        
-        trackLayer.setNeedsDisplay()
-        bufferedTrackLayer.setNeedsDisplay()
         playedTrackLayer.setNeedsDisplay()
         thumbLayer.setNeedsDisplay()
         
-        CATransaction.commit()
     }
     
     

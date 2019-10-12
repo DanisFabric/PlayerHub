@@ -114,7 +114,8 @@ extension Player {
     }
     
     func seek(to time: TimeInterval) {
-        player.seek(to: CMTime(seconds: time, preferredTimescale: CMTimeScale(NSEC_PER_SEC)))
+        print("seek -> \(time)")
+        player.seek(to: CMTime(seconds: time, preferredTimescale: CMTimeScale(NSEC_PER_SEC)), toleranceBefore: .zero, toleranceAfter: .zero)
     }
 }
 
@@ -144,6 +145,8 @@ extension Player {
             
             self.duration = total
             self.playedDuration = time.seconds
+            
+            print("current -> \(self.playedDuration)")
         })
     }
     

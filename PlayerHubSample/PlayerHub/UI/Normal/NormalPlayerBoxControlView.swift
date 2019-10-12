@@ -39,18 +39,23 @@ private class NormalPlayerBottomBar: UIView {
     private(set) var totalDuration: TimeInterval = 0 {
         didSet {
             totalDurationLabel.text = string(of: totalDuration)
-            updateSlider()
         }
     }
     private(set) var playedDuration: TimeInterval = 0 {
         didSet {
             playedDurationLabel.text = string(of: playedDuration)
-            updateSlider()
+            
+            if totalDuration != 0 {
+                slider.playedProgress = playedDuration / totalDuration
+            }
+
         }
     }
     private(set) var bufferedDuration: TimeInterval = 0 {
         didSet {
-            updateSlider()
+            if totalDuration != 0 {
+                slider.bufferedProgress = bufferedDuration / totalDuration                
+            }
         }
     }
     
@@ -109,18 +114,11 @@ private class NormalPlayerBottomBar: UIView {
     func configure(bufferedDuration: TimeInterval) {
         self.bufferedDuration = bufferedDuration
     }
-    
-    private func updateSlider() {
-        if totalDuration == 0 {
-            return
-        }
-        slider.playedProgress = playedDuration / totalDuration
-        slider.bufferedProgress = bufferedDuration / totalDuration
-    }
 }
 class NormalPlayerControlView: UIView {
     var didTouchToPlayHandler: (() -> Void)?
     var didTouchToPauseHandler: (() -> Void)?
+    var didTouchWillSeekHandler: (() -> Void)?
     var didTouchToSeekHandler: ((TimeInterval) -> Void)?
     
     private let bottomBar = NormalPlayerBottomBar()
@@ -161,7 +159,14 @@ class NormalPlayerControlView: UIView {
             make.center.equalToSuperview()
         }
         
+        configure(totalDuration: 0)
+        configure(playedDuration: 0)
+        
         playButton.addTarget(self, action: #selector(onTouch(playButton:)), for: .touchUpInside)
+        
+        bottomBar.slider.addTarget(self, action: #selector(onTouchDown(slider:)), for: .touchDown)
+        bottomBar.slider.addTarget(self, action: #selector(onTouchUp(slider:)), for: .touchUpInside)
+        bottomBar.slider.addTarget(self, action: #selector(onTouchUp(slider:)), for: .touchUpOutside)
     }
     
     required init?(coder: NSCoder) {
@@ -176,6 +181,17 @@ extension NormalPlayerControlView {
         } else {
             didTouchToPlayHandler?()
         }
+    }
+    
+    @objc private func onTouchDown(slider: PlayerSlider) {
+        didTouchWillSeekHandler?()
+    }
+    
+    @objc private func onTouchUp(slider: PlayerSlider) {
+        if bottomBar.totalDuration == 0 {
+            return
+        }
+        didTouchToSeekHandler?(slider.playedProgress * bottomBar.totalDuration)
     }
 }
 
