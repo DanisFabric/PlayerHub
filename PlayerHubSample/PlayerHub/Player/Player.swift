@@ -31,7 +31,7 @@ class Player: NSObject {
     
     private let player: AVPlayer = {
         let temp = AVPlayer()
-        temp.automaticallyWaitsToMinimizeStalling = true
+        temp.automaticallyWaitsToMinimizeStalling = false
         
         return temp
     }()
@@ -61,6 +61,8 @@ class Player: NSObject {
     
     var loopMode = LoopMode.never
     
+    private var toPlay = false
+    private let startPlayingAfterPreBufferingDuration: TimeInterval = 2 // 缓存2秒内容进行播放
     
     // Private
     private var playerObservations = [NSKeyValueObservation]()
@@ -100,6 +102,7 @@ extension Player {
     }
     
     func stop() {
+        toPlay = false
         removeItemObservers()
         currentItem = nil
         player.replaceCurrentItem(with: nil)
@@ -108,10 +111,14 @@ extension Player {
     }
     
     func play() {
+        toPlay = true
+        
         player.play()
     }
     
     func pause() {
+        toPlay = false
+        
         player.pause()
     }
     
@@ -133,7 +140,7 @@ extension Player {
         let ob2 = player.observe(\.timeControlStatus, options: .new) { [unowned self] (player, change) in
             self.updateStatus()
         }
-        
+                
         playerObservations = [ob1, ob2]
         
         timeObserver = player.addPeriodicTimeObserver(forInterval: CMTime(seconds: 0.03, preferredTimescale: CMTimeScale(NSEC_PER_SEC)), queue: DispatchQueue.main, using: { [unowned self] (time) in
@@ -154,6 +161,10 @@ extension Player {
             $0.invalidate()
         }
         playerObservations.removeAll()
+        
+        if let timeObserver = timeObserver {
+            player.removeTimeObserver(timeObserver)
+        }
     }
     
     private func addItemObservers() {
@@ -167,10 +178,34 @@ extension Player {
         let ob2 = currentItem.observe(\.loadedTimeRanges, options: .new) { [unowned self] (item, change) in
             if let range = item.loadedTimeRanges.first as? CMTimeRange {
                 self.bufferedDurationDidChangeHandler?(range.start.seconds, range.duration.seconds, self.duration)
+                
+                if self.status == .buffering {
+                    if range.start.seconds + range.duration.seconds == currentItem.duration.seconds { // 到末尾
+                        self.play()
+                    } else if range.start.seconds + range.duration.seconds > currentItem.currentTime().seconds + self.startPlayingAfterPreBufferingDuration {    // 多加载了1秒
+                        self.play()
+                    }
+                }
             }
         }
+        let ob3 = currentItem.observe(\.isPlaybackLikelyToKeepUp, options: .new) { [unowned self] (item, change) in
+            self.updateStatus()
+        }
+        let ob4 = currentItem.observe(\.isPlaybackBufferEmpty, options: .new) { [unowned self] (item, change) in
+//            if self.status == .buffering && !item.isPlaybackBufferFull {
+//                self.play()
+//            }
+            
+            self.updateStatus()
+        }
+        let ob5 = currentItem.observe(\.isPlaybackBufferFull, options: .new) { [unowned self] (item, change) in
+//            if self.status == .buffering && item.isPlaybackBufferFull {
+//                self.play()
+//            }
+            self.updateStatus()
+        }
         
-        itemObservations = [ob1, ob2]
+        itemObservations = [ob1, ob2, ob3, ob4, ob5]
     }
     
     private func removeItemObservers() {
@@ -201,22 +236,22 @@ extension Player {
         
         self.error = nil
         
-        switch player.timeControlStatus {
-        case .playing:
-            status = .playing
-        case .paused:
-            if status == .initial && currentItem.currentTime().seconds == 0 {
+        if toPlay { // 期望播放
+            if currentItem.isPlaybackLikelyToKeepUp && player.rate != 0 {
+                self.status = .playing
+            } else {
+                self.status = .buffering
+            }
+        } else {
+            if status == .initial || status == .preparing && currentItem.currentTime().seconds == 0 {
                 status = .preparing
             } else if currentItem.currentTime() == currentItem.duration {
                 status = .end
             } else {
                 status = .paused
             }
-        case .waitingToPlayAtSpecifiedRate:
-            status = .buffering
-        default:
-            break
         }
+        
     }
 }
 

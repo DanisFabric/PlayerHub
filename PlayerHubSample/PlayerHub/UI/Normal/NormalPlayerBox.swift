@@ -61,6 +61,7 @@ class NormalPlayerBox: UIView {
         
         controlView.didTouchToSeekHandler = { [unowned self] playedDuration in
             self.playerView.player.seek(to: playedDuration)
+            self.playerView.player.play()
         }
     }
     
