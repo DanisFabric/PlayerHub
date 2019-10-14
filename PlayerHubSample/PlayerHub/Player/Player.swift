@@ -8,6 +8,7 @@
 
 import Foundation
 import AVFoundation
+import UIKit
 
 class Player: NSObject {
     enum Status {
@@ -27,6 +28,8 @@ class Player: NSObject {
     
     var statusDidChangeHandler: ((Status) -> Void)?
     var playedDurationDidChangeHandler: ((TimeInterval, TimeInterval) -> Void)?
+    
+    // loadedStart, loadedDuration, totalDuration
     var bufferedDurationDidChangeHandler: ((TimeInterval, TimeInterval, TimeInterval) -> Void)?
     
     private let player: AVPlayer = {
@@ -68,6 +71,12 @@ class Player: NSObject {
     private var playerObservations = [NSKeyValueObservation]()
     private var itemObservations = [NSKeyValueObservation]()
     private var timeObserver: Any?
+    
+    private var isPlayingWhenEnterBackground = false
+    private var isPlayingWhenResignActive = false
+    var isPlaying: Bool {
+        return player.rate != 0
+    }
     
     override init() {
         super.init()
@@ -128,9 +137,16 @@ extension Player {
 }
 
 extension Player {
-    private func addNotifications() {}
+    private func addNotifications() {
+        NotificationCenter.default.addObserver(self, selector: #selector(onNotificationEnterBackground(_:)), name: UIApplication.didEnterBackgroundNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(onNotificationEnterForeground(_:)), name: UIApplication.willEnterForegroundNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(onNotificationBecomeActive(_:)), name: UIApplication.didBecomeActiveNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(onNotificationResignActive(_:)), name: UIApplication.willResignActiveNotification, object: nil)
+    }
     
-    private func removeNotifications() {}
+    private func removeNotifications() {
+        NotificationCenter.default.removeObserver(self)
+    }
     
     private func addPlayerObservers() {
         let ob1 = player.observe(\.status, options: .new) { [unowned self] (player, change) in
@@ -192,16 +208,9 @@ extension Player {
             self.updateStatus()
         }
         let ob4 = currentItem.observe(\.isPlaybackBufferEmpty, options: .new) { [unowned self] (item, change) in
-//            if self.status == .buffering && !item.isPlaybackBufferFull {
-//                self.play()
-//            }
-            
             self.updateStatus()
         }
         let ob5 = currentItem.observe(\.isPlaybackBufferFull, options: .new) { [unowned self] (item, change) in
-//            if self.status == .buffering && item.isPlaybackBufferFull {
-//                self.play()
-//            }
             self.updateStatus()
         }
         
@@ -256,6 +265,32 @@ extension Player {
 }
 
 extension Player {
-
+    @objc private func onNotificationEnterBackground(_ noti: Notification) {
+        isPlayingWhenEnterBackground = isPlaying
+        
+        if isPlaying {
+            pause()
+        }
+    }
+    
+    @objc private func onNotificationEnterForeground(_ noti: Notification) {
+        if isPlayingWhenEnterBackground {
+            play()
+        }
+    }
+    
+    @objc private func onNotificationResignActive(_ noti: Notification) {
+        isPlayingWhenResignActive = isPlaying
+        
+        if isPlaying {
+            pause()
+        }
+    }
+    
+    @objc private func onNotificationBecomeActive(_ noti: Notification) {
+        if isPlayingWhenResignActive {
+            play()
+        }
+    }
 }
     

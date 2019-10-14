@@ -168,6 +168,7 @@ class NormalPlayerControlView: UIView {
         bottomBar.slider.addTarget(self, action: #selector(onTouchDown(slider:)), for: .touchDown)
         bottomBar.slider.addTarget(self, action: #selector(onTouchUp(slider:)), for: .touchUpInside)
         bottomBar.slider.addTarget(self, action: #selector(onTouchUp(slider:)), for: .touchUpOutside)
+        addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(onTouchBackground(tap:))))
     }
     
     required init?(coder: NSCoder) {
@@ -193,6 +194,13 @@ extension NormalPlayerControlView {
             return
         }
         didTouchToSeekHandler?(slider.playedProgress * bottomBar.totalDuration)
+    }
+    
+    @objc private func onTouchBackground(tap: UITapGestureRecognizer) {
+        bottomBar.isHidden = !bottomBar.isHidden
+        if !indicatorView.isAnimating {
+            playButton.isHidden = bottomBar.isHidden            
+        }
     }
 }
 
