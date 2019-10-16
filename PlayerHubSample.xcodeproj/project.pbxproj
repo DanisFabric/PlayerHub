@@ -20,6 +20,8 @@
 		B727A13B235028760026B2C1 /* NormalPlayerBoxControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B727A13A235028760026B2C1 /* NormalPlayerBoxControlView.swift */; };
 		B727A13E235029BC0026B2C1 /* PlayerSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B727A13D235029BC0026B2C1 /* PlayerSlider.swift */; };
 		B727A14123516B9F0026B2C1 /* NormalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B727A14023516B9F0026B2C1 /* NormalViewController.swift */; };
+		B7E8B701235461380076A837 /* PlayerHub.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7E8B700235461380076A837 /* PlayerHub.swift */; };
+		B7E8B703235466620076A837 /* NextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7E8B702235466620076A837 /* NextViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +42,8 @@
 		B727A13A235028760026B2C1 /* NormalPlayerBoxControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NormalPlayerBoxControlView.swift; sourceTree = "<group>"; };
 		B727A13D235029BC0026B2C1 /* PlayerSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerSlider.swift; sourceTree = "<group>"; };
 		B727A14023516B9F0026B2C1 /* NormalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NormalViewController.swift; sourceTree = "<group>"; };
+		B7E8B700235461380076A837 /* PlayerHub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerHub.swift; sourceTree = "<group>"; };
+		B7E8B702235466620076A837 /* NextViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +95,7 @@
 		B727A130234F0C890026B2C1 /* PlayerHub */ = {
 			isa = PBXGroup;
 			children = (
+				B7E8B6FF2354612C0076A837 /* Hub */,
 				B727A136235024340026B2C1 /* UI */,
 				B727A131234F0C900026B2C1 /* Player */,
 			);
@@ -128,8 +133,17 @@
 			isa = PBXGroup;
 			children = (
 				B727A14023516B9F0026B2C1 /* NormalViewController.swift */,
+				B7E8B702235466620076A837 /* NextViewController.swift */,
 			);
 			path = ViewController;
+			sourceTree = "<group>";
+		};
+		B7E8B6FF2354612C0076A837 /* Hub */ = {
+			isa = PBXGroup;
+			children = (
+				B7E8B700235461380076A837 /* PlayerHub.swift */,
+			);
+			path = Hub;
 			sourceTree = "<group>";
 		};
 		C6BB61431EBF07A5115DFF68 /* Frameworks */ = {
@@ -266,8 +280,10 @@
 			files = (
 				B727A133234F0CA20026B2C1 /* Player.swift in Sources */,
 				B727A121234F0C800026B2C1 /* ViewController.swift in Sources */,
+				B7E8B701235461380076A837 /* PlayerHub.swift in Sources */,
 				B727A138235024620026B2C1 /* NormalPlayerBox.swift in Sources */,
 				B727A13B235028760026B2C1 /* NormalPlayerBoxControlView.swift in Sources */,
+				B7E8B703235466620076A837 /* NextViewController.swift in Sources */,
 				B727A11D234F0C800026B2C1 /* AppDelegate.swift in Sources */,
 				B727A13E235029BC0026B2C1 /* PlayerSlider.swift in Sources */,
 				B727A135234F0CAD0026B2C1 /* PlayerView.swift in Sources */,
