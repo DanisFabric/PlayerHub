@@ -51,7 +51,7 @@ class NormalViewController: UIViewController {
 
     @objc private func onTouch(playButton: UIButton) {
         PlayerHub.shared.addBox(to: container)
-        PlayerHub.shared.replace(with: URL(string: longVideo)!)
+//        PlayerHub.shared.replace(with: URL(string: longVideo)!, )
     }
     
     @objc private func onTouch(nextButton: AnyObject) {

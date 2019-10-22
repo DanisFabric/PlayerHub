@@ -46,7 +46,7 @@ extension PlayerHub {
     }
 
     
-    func replace(with url: URL) {
-        box.playerView.player.replace(with: url)
+    func replace(with url: URL, coverUrl: URL?, placeholder: UIImage?) {
+        box.replace(with: url, coverUrl: coverUrl, placeholder: placeholder)
     }
 }

@@ -13,7 +13,7 @@ import UIKit
 class Player: NSObject {
     enum Status {
         case initial        // 初始状态
-        case preparing      // 装载了Item，但并未开始播放
+        case prepared       // 装载了Item，但并未开始播放
         case buffering      // 加载中
         case playing        // 播放中
         case paused         // 暂停
@@ -252,8 +252,8 @@ extension Player {
                 self.status = .buffering
             }
         } else {
-            if status == .initial || status == .preparing && currentItem.currentTime().seconds == 0 {
-                status = .preparing
+            if status == .initial || status == .prepared && currentItem.currentTime().seconds == 0 {
+                status = .prepared
             } else if currentItem.currentTime() == currentItem.duration {
                 status = .end
             } else {

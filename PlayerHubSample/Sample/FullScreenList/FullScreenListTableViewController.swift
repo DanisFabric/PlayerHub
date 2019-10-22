@@ -13,6 +13,8 @@ class FullScreenListTableViewController: UITableViewController {
     
     
     var feeds = DataCreator.createFeeds()
+    
+    private var playingIndexPath: IndexPath?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -66,7 +68,6 @@ class FullScreenListTableViewController: UITableViewController {
     }
     
     private func autoPlayIfNeeded() {
-//        let currentIndexPath = tableView.indexPathForRow(at: CGPoint(x: view.bounds.width / 2, y: tableView.contentOffset.y + tableView.bounds.height / 2))
         let pointX = view.bounds.width / 2
         let pointY = tableView.contentOffset.y + tableView.bounds.height / 2
         
@@ -77,9 +78,16 @@ class FullScreenListTableViewController: UITableViewController {
             return
         }
         
+        if currentIndexPath == playingIndexPath {
+            return
+        }
+        playingIndexPath = currentIndexPath
+        
+        let feed = feeds[currentIndexPath.row]
+        
         PlayerHub.shared.stop()
         PlayerHub.shared.addBox(to: cell.videoContainer)
-        PlayerHub.shared.replace(with: feeds[currentIndexPath.row].videoURL)
+        PlayerHub.shared.replace(with: feed.videoURL, coverUrl: feed.imageURL, placeholder: nil)
         PlayerHub.shared.play()
     }
 }

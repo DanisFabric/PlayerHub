@@ -72,7 +72,8 @@ class NormalPlayerBox: UIView {
 }
 
 extension NormalPlayerBox {
-    func replace(with url: URL) {
+    func replace(with url: URL, coverUrl: URL?, placeholder: UIImage?) {
         playerView.player.replace(with: url)
+        controlView.configure(cover: coverUrl, placeholder: placeholder)
     }
 }

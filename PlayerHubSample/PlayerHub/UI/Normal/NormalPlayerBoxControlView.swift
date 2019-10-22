@@ -8,6 +8,7 @@
 
 import UIKit
 import SnapKit
+import Kingfisher
 
 private class NormalPlayerBottomBar: UIView {
     let playedDurationLabel: UILabel = {
@@ -58,7 +59,7 @@ private class NormalPlayerBottomBar: UIView {
             }
         }
     }
-    
+        
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -123,6 +124,13 @@ class NormalPlayerControlView: UIView {
     
     private let bottomBar = NormalPlayerBottomBar()
     
+    private let coverImageView: UIImageView = {
+        let temp = UIImageView()
+        temp.contentMode = .scaleAspectFit
+        
+        return temp
+    }()
+    
     private let playButton: UIButton = {
         let temp = UIButton(type: .custom)
         temp.setImage(UIImage(named: "normal_player_play"), for: .normal)
@@ -139,12 +147,19 @@ class NormalPlayerControlView: UIView {
         return temp
     }()
     
+    private var isStartedPlayingThrough = false
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
+        addSubview(coverImageView)
         addSubview(bottomBar)
         addSubview(indicatorView)
         addSubview(playButton)
+        
+        coverImageView.snp.makeConstraints { (make) in
+            make.edges.equalToSuperview()
+        }
         
         bottomBar.snp.makeConstraints { (make) in
             make.left.right.bottom.equalToSuperview()
@@ -205,6 +220,9 @@ extension NormalPlayerControlView {
 }
 
 extension NormalPlayerControlView {
+    func configure(cover url: URL?, placeholder: UIImage?) {
+        coverImageView.kf.setImage(with: url, placeholder: placeholder)
+    }
     func configure(totalDuration: TimeInterval) {
         bottomBar.configure(totalDuration: totalDuration)
     }
@@ -223,8 +241,10 @@ extension NormalPlayerControlView {
         switch status {
         case .initial:
             isPlayable = false
-        case .preparing:
+        case .prepared:
             isPlayable = true
+            
+            self.isStartedPlayingThrough = false
         case .buffering:
             isPlayable = true
             isBuffering = true
@@ -233,10 +253,18 @@ extension NormalPlayerControlView {
         case .playing:
             isPlayable = true
             isPlaying = true
+            
+            self.isStartedPlayingThrough = true
         case .end:
             isPlayable = true
         case .failed:
             isPlayable = false
+        }
+        
+        if isStartedPlayingThrough {
+            coverImageView.isHidden = true
+        } else {
+            coverImageView.isHidden = false
         }
         
         if isPlayable {
