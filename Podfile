@@ -7,6 +7,7 @@ target "PlayerHubSample" do
 # Lib
     pod 'Alamofire'
     pod 'SnapKit'
-    
+    pod 'Kingfisher'
+
 end
 

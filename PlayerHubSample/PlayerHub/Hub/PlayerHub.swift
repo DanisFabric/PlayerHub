@@ -12,25 +12,28 @@ import UIKit
 class PlayerHub {
     static let shared = PlayerHub()
     
-    private init() {}
-    
     let box = NormalPlayerBox()
+    
+    private init() {
+        
+    }
+    
     
 }
 
 extension PlayerHub {
-    func add(to container: UIView) {
+    func addBox(to container: UIView) {
         container.addSubview(box)
         box.frame = container.bounds
     }
     
-    func move(to container: UIView) {
+    func moveBox(to container: UIView) {
         box.removeFromSuperview()
         
-        add(to: container)
+        addBox(to: container)
     }
     
-    func remove() {
+    func removeBox() {
         box.removeFromSuperview()
     }
     
@@ -38,7 +41,12 @@ extension PlayerHub {
         box.playerView.player.stop()
     }
     
-    func play(url: URL) {
+    func play() {
+        box.playerView.player.play()
+    }
+
+    
+    func replace(with url: URL) {
         box.playerView.player.replace(with: url)
     }
 }

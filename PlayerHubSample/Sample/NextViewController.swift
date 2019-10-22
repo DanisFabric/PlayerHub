@@ -31,6 +31,6 @@ class NextViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        PlayerHub.shared.move(to: container)
+        PlayerHub.shared.moveBox(to: container)
     }
 }
