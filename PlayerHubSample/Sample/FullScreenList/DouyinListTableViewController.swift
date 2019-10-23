@@ -18,6 +18,8 @@ class DouyinListTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        PlayerHub.shared.register(controller: NormalPlayerController())
 
         tableView.backgroundColor = UIColor.black
         tableView.register(DouyinCell.self, forCellReuseIdentifier: "ItemCell")
@@ -92,7 +94,7 @@ class DouyinListTableViewController: UITableViewController {
         let feed = feeds[currentIndexPath.row]
         
         PlayerHub.shared.stop()
-        PlayerHub.shared.addBox(to: cell.videoContainer)
+        PlayerHub.shared.addPlayer(to: cell.videoContainer)
         PlayerHub.shared.replace(with: feed.videoURL, coverUrl: feed.imageURL, placeholder: nil)
         PlayerHub.shared.play()
     }

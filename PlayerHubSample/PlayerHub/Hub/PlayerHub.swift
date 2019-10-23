@@ -8,45 +8,46 @@
 
 import UIKit
 
-
 class PlayerHub {
     static let shared = PlayerHub()
     
-    let box = NormalPlayerBox()
+    var controller: PlayerControlable!
     
     private init() {
         
     }
     
+    func register(controller: PlayerControlable) {
+        self.controller = controller
+    }
     
 }
 
 extension PlayerHub {
-    func addBox(to container: UIView) {
-        container.addSubview(box)
-        box.frame = container.bounds
+    func addPlayer(to container: UIView) {
+        container.addSubview(controller.contentView)
+        controller.contentView.frame = container.bounds
     }
     
     func moveBox(to container: UIView) {
-        box.removeFromSuperview()
+        controller.contentView.removeFromSuperview()
         
-        addBox(to: container)
+        addPlayer(to: container)
     }
     
     func removeBox() {
-        box.removeFromSuperview()
+        controller.contentView.removeFromSuperview()
     }
     
     func stop() {
-        box.playerView.player.stop()
+        controller.playerView.player.stop()
     }
     
     func play() {
-        box.playerView.player.play()
+        controller.playerView.player.play()
     }
 
-    
     func replace(with url: URL, coverUrl: URL?, placeholder: UIImage?) {
-        box.replace(with: url, coverUrl: coverUrl, placeholder: placeholder)
+        controller.replace(with: url, coverUrl: coverUrl, placeholder: placeholder)
     }
 }
