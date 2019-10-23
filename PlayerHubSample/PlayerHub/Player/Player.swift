@@ -40,6 +40,7 @@ class Player: NSObject {
     }()
     
     private(set) var currentItem: AVPlayerItem?
+    private(set) var currentAsset: AVAsset?
     private(set) var duration: TimeInterval = 0
     private(set) var playedDuration: TimeInterval = 0 {
         didSet {
@@ -90,8 +91,6 @@ class Player: NSObject {
         removePlayerObservers()
         removeNotifications()
     }
-    
-    
 }
 
 extension Player {
@@ -103,8 +102,9 @@ extension Player {
         if currentItem != nil {
             stop()
         }
+        currentAsset = AVAsset(url: url)
+        currentItem = AVPlayerItem(asset: currentAsset!)
         
-        currentItem = AVPlayerItem(url: url)
         addItemObservers()
         
         player.replaceCurrentItem(with: currentItem)
@@ -133,6 +133,35 @@ extension Player {
     
     func seek(to time: TimeInterval) {
         player.seek(to: CMTime(seconds: time, preferredTimescale: CMTimeScale(NSEC_PER_SEC)), toleranceBefore: .zero, toleranceAfter: .zero)
+    }
+    
+    func generateThumbnaiAtCurrentTime() -> UIImage? {
+        guard let currentAsset = currentAsset else {
+            return nil
+        }
+        guard let currentItem = currentItem else {
+            return nil
+        }
+        
+        let generator = AVAssetImageGenerator(asset: currentAsset)
+        let time = currentItem.currentTime()
+        
+        generator.requestedTimeToleranceAfter = .zero
+        generator.requestedTimeToleranceBefore = .zero
+        
+        if let cgImage = try? generator.copyCGImage(at: time, actualTime: nil) {
+            return UIImage(cgImage: cgImage)
+        } else {
+            generator.requestedTimeToleranceBefore = .positiveInfinity
+            generator.requestedTimeToleranceAfter = .negativeInfinity
+            
+            if let cgImage = try? generator.copyCGImage(at: time, actualTime: nil) {
+                return UIImage(cgImage: cgImage)
+            }
+        }
+        
+        
+        return nil
     }
 }
 

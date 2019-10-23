@@ -22,6 +22,7 @@ class FullScreenListTableViewController: UITableViewController {
         tableView.backgroundColor = UIColor.black
         tableView.register(FullScreenCell.self, forCellReuseIdentifier: "ItemCell")
         tableView.isPagingEnabled = true
+        tableView.contentInsetAdjustmentBehavior = .never
 
         
     }
@@ -51,6 +52,11 @@ class FullScreenListTableViewController: UITableViewController {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "ItemCell") as! FullScreenCell
         cell.videoImageView.kf.setImage(with: URL(string: current.image))
+        
+        
+        cell.didTouchToPlayHandler = { [unowned self] in
+            self.autoPlayIfNeeded()
+        }
         
         return cell
     }
