@@ -42,8 +42,8 @@ class NormalPlayerBox: UIView {
             self.controlView.configure(playedDuration: played)
         }
         
-        playerView.player.bufferedDurationDidChangeHandler = { [unowned self] start, buffered, total in
-            self.controlView.configure(bufferedDuration: start + buffered)
+        playerView.player.bufferedDurationDidChangeHandler = { [unowned self] range in
+            self.controlView.configure(bufferedDuration: range.upperBound)
         }
         
         
