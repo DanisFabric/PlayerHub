@@ -69,12 +69,6 @@ class Player: NSObject {
     
     private(set) var currentItem: AVPlayerItem?
     private(set) var currentAsset: AVAsset?
-    private(set) var duration: TimeInterval = 0
-    private(set) var playedDuration: TimeInterval = 0 {
-        didSet {
-            playedDurationDidChangeHandler?(playedDuration, duration)
-        }
-    }
     private(set) var status = Status.initial {
         didSet {
             if status != oldValue {
@@ -95,6 +89,14 @@ class Player: NSObject {
     var gravity = Gravity.scaleAspectFit {
         didSet {
             playerLayer?.videoGravity = gravity.videoGravity
+        }
+    }
+    var duration: TimeInterval {
+        return currentItem?.duration.seconds ?? 0
+    }
+    private(set) var playedDuration: TimeInterval = 0 {
+        didSet {
+            playedDurationDidChangeHandler?(playedDuration, duration)
         }
     }
     
@@ -231,8 +233,7 @@ extension Player {
                 return
             }
             
-            self.duration = total
-            self.playedDuration = time.seconds
+            self.playedDurationDidChangeHandler?(self.playedDuration, self.duration)
         })
     }
     

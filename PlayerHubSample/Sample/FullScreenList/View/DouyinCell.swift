@@ -9,7 +9,7 @@
 import UIKit
 import SnapKit
 
-class FullScreenCell: UITableViewCell {
+class DouyinCell: UITableViewCell {
     var didTouchToPlayHandler: (() -> Void)?
     
     let videoContainer = UIView()

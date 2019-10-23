@@ -9,7 +9,7 @@
 import UIKit
 import Kingfisher
 
-class FullScreenListTableViewController: UITableViewController {
+class DouyinListTableViewController: UITableViewController {
     
     
     var feeds = DataCreator.createFeeds()
@@ -20,7 +20,7 @@ class FullScreenListTableViewController: UITableViewController {
         super.viewDidLoad()
 
         tableView.backgroundColor = UIColor.black
-        tableView.register(FullScreenCell.self, forCellReuseIdentifier: "ItemCell")
+        tableView.register(DouyinCell.self, forCellReuseIdentifier: "ItemCell")
         tableView.isPagingEnabled = true
         tableView.contentInsetAdjustmentBehavior = .never
 
@@ -50,7 +50,7 @@ class FullScreenListTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let current = feeds[indexPath.row]
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ItemCell") as! FullScreenCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ItemCell") as! DouyinCell
         cell.videoImageView.kf.setImage(with: URL(string: current.image))
         
         
@@ -80,7 +80,7 @@ class FullScreenListTableViewController: UITableViewController {
         guard let currentIndexPath = tableView.indexPathForRow(at: CGPoint(x: pointX, y: pointY)) else {
             return
         }
-        guard let cell = tableView.cellForRow(at: currentIndexPath) as? FullScreenCell else {
+        guard let cell = tableView.cellForRow(at: currentIndexPath) as? DouyinCell else {
             return
         }
         
