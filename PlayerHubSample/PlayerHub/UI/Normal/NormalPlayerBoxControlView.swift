@@ -124,7 +124,7 @@ class NormalPlayerControlView: UIView {
     
     private let bottomBar = NormalPlayerBottomBar()
     
-    private let coverImageView: UIImageView = {
+    let coverImageView: UIImageView = {
         let temp = UIImageView()
         temp.contentMode = .scaleAspectFit
         

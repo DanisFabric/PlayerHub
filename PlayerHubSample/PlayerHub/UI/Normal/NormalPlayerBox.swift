@@ -76,4 +76,14 @@ extension NormalPlayerBox {
         playerView.player.replace(with: url)
         controlView.configure(cover: coverUrl, placeholder: placeholder)
     }
+    
+    var gravity: Player.Gravity {
+        get {
+            return playerView.player.gravity
+        }
+        set {
+            playerView.player.gravity = newValue
+            controlView.coverImageView.contentMode = newValue.imageContentMode
+        }
+    }
 }

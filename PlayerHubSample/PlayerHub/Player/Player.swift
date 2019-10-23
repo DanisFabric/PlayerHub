@@ -21,6 +21,34 @@ class Player: NSObject {
         case failed         // 播放出错
     }
     
+    enum Gravity {
+        case scaleToFill
+        case scaleAspectFit
+        case scaleAspectFill
+        
+        var videoGravity: AVLayerVideoGravity {
+            switch self {
+            case .scaleAspectFill:
+                return .resizeAspectFill
+            case .scaleAspectFit:
+                return .resizeAspect
+            case .scaleToFill:
+                return .resize
+            }
+        }
+        
+        var imageContentMode: UIView.ContentMode {
+            switch self {
+            case .scaleToFill:
+                return .scaleToFill
+            case .scaleAspectFit:
+                return .scaleAspectFit
+            case .scaleAspectFill:
+                return .scaleAspectFill
+            }
+        }
+    }
+    
     enum LoopMode {
         case never
         case always
@@ -64,11 +92,17 @@ class Player: NSObject {
     private(set) var error: Error?
     
     var loopMode = LoopMode.never
+    var gravity = Gravity.scaleAspectFit {
+        didSet {
+            playerLayer?.videoGravity = gravity.videoGravity
+        }
+    }
     
+    // Private
+    private weak var playerLayer: AVPlayerLayer?
     private var toPlay = false
     private let startPlayingAfterPreBufferingDuration: TimeInterval = 2 // 缓存2秒内容进行播放
     
-    // Private
     private var playerObservations = [NSKeyValueObservation]()
     private var itemObservations = [NSKeyValueObservation]()
     private var timeObserver: Any?
@@ -96,6 +130,7 @@ class Player: NSObject {
 extension Player {
     func bind(to playerLayer: AVPlayerLayer) {
         playerLayer.player = player
+        self.playerLayer = playerLayer
     }
     
     func replace(with url: URL) {
@@ -135,7 +170,7 @@ extension Player {
         player.seek(to: CMTime(seconds: time, preferredTimescale: CMTimeScale(NSEC_PER_SEC)), toleranceBefore: .zero, toleranceAfter: .zero)
     }
     
-    func generateThumbnaiAtCurrentTime() -> UIImage? {
+    func generateThumbnailAtCurrentTime() -> UIImage? {
         guard let currentAsset = currentAsset else {
             return nil
         }
