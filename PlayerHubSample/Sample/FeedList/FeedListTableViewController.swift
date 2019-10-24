@@ -17,9 +17,8 @@ class FeedListTableViewController: UITableViewController {
 
         PlayerHub.shared.register(controller: NormalPlayerController())
         
-        tableView.backgroundColor = UIColor.black
+        tableView.backgroundColor = UIColor(hex: 0xeeeeee)
         tableView.register(FeedCell.self, forCellReuseIdentifier: "ItemCell")
-        tableView.contentInsetAdjustmentBehavior = .never
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 200
         
@@ -42,9 +41,22 @@ class FeedListTableViewController: UITableViewController {
         cell.configure(with: current)
         
         cell.didTouchToPlayHandler = { [unowned self] in
-            
+            PlayerHub.shared.stop()
+            PlayerHub.shared.removePlayer()
+            PlayerHub.shared.addPlayer(to: cell.videoContainer)
+            PlayerHub.shared.replace(with: current.videoURL, coverUrl: current.imageURL, placeholder: nil)
+            PlayerHub.shared.play()
         }
         
         return cell
     }
+    
+    override func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let videoContainer = (cell as! FeedCell).videoContainer
+        if PlayerHub.shared.playerIsIn(container: videoContainer) {
+            PlayerHub.shared.stop()
+            PlayerHub.shared.removePlayer()
+        }
+    }
+    
 }

@@ -307,21 +307,24 @@ extension Player {
         
         self.error = nil
         
-        if toPlay { // 期望播放
-            if currentItem.isPlaybackLikelyToKeepUp && player.rate != 0 {
-                self.status = .playing
-            } else {
-                self.status = .buffering
-            }
+        if currentItem.currentTime() == currentItem.duration {
+            status = .end
         } else {
-            if status == .initial || status == .prepared && currentItem.currentTime().seconds == 0 {
-                status = .prepared
-            } else if currentItem.currentTime() == currentItem.duration {
-                status = .end
+            if toPlay { // 期望播放
+                if currentItem.isPlaybackLikelyToKeepUp && player.rate != 0 {
+                    self.status = .playing
+                } else {
+                    self.status = .buffering
+                }
             } else {
-                status = .paused
+                if status == .initial || status == .prepared && currentItem.currentTime().seconds == 0 {
+                    status = .prepared
+                }  else {
+                    status = .paused
+                }
             }
         }
+        
         
     }
 }

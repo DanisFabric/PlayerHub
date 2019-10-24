@@ -29,13 +29,13 @@ extension PlayerHub {
         controller.contentView.frame = container.bounds
     }
     
-    func moveBox(to container: UIView) {
+    func movePlayer(to container: UIView) {
         controller.contentView.removeFromSuperview()
         
         addPlayer(to: container)
     }
     
-    func removeBox() {
+    func removePlayer() {
         controller.contentView.removeFromSuperview()
     }
     
@@ -49,5 +49,9 @@ extension PlayerHub {
 
     func replace(with url: URL, coverUrl: URL?, placeholder: UIImage?) {
         controller.replace(with: url, coverUrl: coverUrl, placeholder: placeholder)
+    }
+    
+    func playerIsIn(container: UIView) -> Bool {
+        return controller.contentView.superview == container
     }
 }

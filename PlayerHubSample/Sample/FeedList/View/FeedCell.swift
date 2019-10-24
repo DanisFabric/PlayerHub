@@ -13,7 +13,7 @@ class FeedCell: UITableViewCell {
     private class UserBar: UIView {
         let avatarImageView: UIImageView = {
             let temp = UIImageView()
-            temp.backgroundColor = UIColor.lightGray
+            temp.backgroundColor = UIColor(hex: 0xeeeeee)
             
             return temp
         }()
@@ -89,6 +89,13 @@ class FeedCell: UITableViewCell {
     
     private let defaultVideoRatio: CGFloat = 9.0 / 16
     
+    private let separatorView: UIView = {
+        let temp = UIView()
+        temp.backgroundColor = UIColor(hex: 0xdddddd)
+        
+        return temp
+    }()
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
@@ -97,6 +104,7 @@ class FeedCell: UITableViewCell {
         contentView.addSubview(videoContainer)
         videoContainer.addSubview(videoImageView)
         videoContainer.addSubview(playButton)
+        contentView.addSubview(separatorView)
         
         userBar.snp.makeConstraints { (make) in
             make.top.left.right.equalToSuperview()
@@ -112,8 +120,13 @@ class FeedCell: UITableViewCell {
         videoContainer.snp.makeConstraints { (make) in
             make.top.equalTo(titleLabel.snp.bottom).offset(8)
             make.left.right.equalToSuperview()
-            make.bottom.equalToSuperview().offset(-24)
+            make.bottom.equalToSuperview().offset(-16)
             make.height.equalTo(videoContainer.snp.width).multipliedBy(defaultVideoRatio)
+        }
+        
+        separatorView.snp.makeConstraints { (make) in
+            make.left.right.bottom.equalToSuperview()
+            make.height.equalTo(16)
         }
         
         videoImageView.snp.makeConstraints { (make) in
@@ -141,13 +154,12 @@ class FeedCell: UITableViewCell {
         userBar.nameLabel.text = feed.authorName
         
         titleLabel.text = feed.title
-        print(feed.title)
         videoImageView.kf.setImage(with: feed.imageURL)
     
         videoContainer.snp.remakeConstraints { (make) in
             make.top.equalTo(titleLabel.snp.bottom).offset(8)
             make.left.right.equalToSuperview()
-            make.bottom.equalToSuperview().offset(-24)
+            make.bottom.equalToSuperview().offset(-16)
             if let width = feed.videoWidth, let height = feed.videoHeight {
                 make.height.equalTo(videoContainer.snp.width).multipliedBy(height / width)
             } else {

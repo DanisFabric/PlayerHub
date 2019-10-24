@@ -21,14 +21,13 @@
 		B727A135234F0CAD0026B2C1 /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B727A134234F0CAD0026B2C1 /* PlayerView.swift */; };
 		B727A13B235028760026B2C1 /* NormalPlayerBoxControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B727A13A235028760026B2C1 /* NormalPlayerBoxControlView.swift */; };
 		B727A13E235029BC0026B2C1 /* BufferedSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B727A13D235029BC0026B2C1 /* BufferedSlider.swift */; };
-		B727A14123516B9F0026B2C1 /* NormalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B727A14023516B9F0026B2C1 /* NormalViewController.swift */; };
 		B776194F235D4A5A00D64893 /* DouyinListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B776194E235D4A5A00D64893 /* DouyinListTableViewController.swift */; };
 		B7761952235D4B2700D64893 /* DouyinCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7761951235D4B2700D64893 /* DouyinCell.swift */; };
 		B7890C5A2361792C00C0B4B9 /* FeedListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7890C592361792C00C0B4B9 /* FeedListTableViewController.swift */; };
 		B7890C5D2361794800C0B4B9 /* FeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7890C5C2361794800C0B4B9 /* FeedCell.swift */; };
 		B7890C5F2361797A00C0B4B9 /* FeedDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7890C5E2361797A00C0B4B9 /* FeedDetailViewController.swift */; };
+		B7890C622361931000C0B4B9 /* UIColor+hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7890C612361931000C0B4B9 /* UIColor+hex.swift */; };
 		B7E8B701235461380076A837 /* PlayerHub.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7E8B700235461380076A837 /* PlayerHub.swift */; };
-		B7E8B703235466620076A837 /* NextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7E8B702235466620076A837 /* NextViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,14 +49,13 @@
 		B727A134234F0CAD0026B2C1 /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
 		B727A13A235028760026B2C1 /* NormalPlayerBoxControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NormalPlayerBoxControlView.swift; sourceTree = "<group>"; };
 		B727A13D235029BC0026B2C1 /* BufferedSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BufferedSlider.swift; sourceTree = "<group>"; };
-		B727A14023516B9F0026B2C1 /* NormalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NormalViewController.swift; sourceTree = "<group>"; };
 		B776194E235D4A5A00D64893 /* DouyinListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DouyinListTableViewController.swift; sourceTree = "<group>"; };
 		B7761951235D4B2700D64893 /* DouyinCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DouyinCell.swift; sourceTree = "<group>"; };
 		B7890C592361792C00C0B4B9 /* FeedListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedListTableViewController.swift; sourceTree = "<group>"; };
 		B7890C5C2361794800C0B4B9 /* FeedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCell.swift; sourceTree = "<group>"; };
 		B7890C5E2361797A00C0B4B9 /* FeedDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedDetailViewController.swift; sourceTree = "<group>"; };
+		B7890C612361931000C0B4B9 /* UIColor+hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+hex.swift"; sourceTree = "<group>"; };
 		B7E8B700235461380076A837 /* PlayerHub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerHub.swift; sourceTree = "<group>"; };
-		B7E8B702235466620076A837 /* NextViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -162,6 +160,7 @@
 		B727A13F23516B8E0026B2C1 /* Sample */ = {
 			isa = PBXGroup;
 			children = (
+				B7890C602361930100C0B4B9 /* Utils */,
 				B716A9A7235E9C67005303A8 /* Data */,
 				B776194D235D4A3D00D64893 /* DouyinList */,
 				B7890C582361790900C0B4B9 /* FeedList */,
@@ -197,8 +196,6 @@
 		B7890C582361790900C0B4B9 /* FeedList */ = {
 			isa = PBXGroup;
 			children = (
-				B727A14023516B9F0026B2C1 /* NormalViewController.swift */,
-				B7E8B702235466620076A837 /* NextViewController.swift */,
 				B7890C5B2361793500C0B4B9 /* View */,
 				B7890C592361792C00C0B4B9 /* FeedListTableViewController.swift */,
 				B7890C5E2361797A00C0B4B9 /* FeedDetailViewController.swift */,
@@ -212,6 +209,14 @@
 				B7890C5C2361794800C0B4B9 /* FeedCell.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		B7890C602361930100C0B4B9 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				B7890C612361931000C0B4B9 /* UIColor+hex.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 		B7E8B6FF2354612C0076A837 /* Hub */ = {
@@ -361,16 +366,15 @@
 				B7E8B701235461380076A837 /* PlayerHub.swift in Sources */,
 				B776194F235D4A5A00D64893 /* DouyinListTableViewController.swift in Sources */,
 				B727A13B235028760026B2C1 /* NormalPlayerBoxControlView.swift in Sources */,
-				B7E8B703235466620076A837 /* NextViewController.swift in Sources */,
 				B727A11D234F0C800026B2C1 /* AppDelegate.swift in Sources */,
 				B721358623604E1F0069BB38 /* NormalPlayerController.swift in Sources */,
 				B727A13E235029BC0026B2C1 /* BufferedSlider.swift in Sources */,
 				B7890C5A2361792C00C0B4B9 /* FeedListTableViewController.swift in Sources */,
 				B727A135234F0CAD0026B2C1 /* PlayerView.swift in Sources */,
 				B7890C5F2361797A00C0B4B9 /* FeedDetailViewController.swift in Sources */,
-				B727A14123516B9F0026B2C1 /* NormalViewController.swift in Sources */,
 				B716A9A9235E9C77005303A8 /* DataCreator.swift in Sources */,
 				B7890C5D2361794800C0B4B9 /* FeedCell.swift in Sources */,
+				B7890C622361931000C0B4B9 /* UIColor+hex.swift in Sources */,
 				B721358423604AF70069BB38 /* PlayerControlable.swift in Sources */,
 				B727A11F234F0C800026B2C1 /* SceneDelegate.swift in Sources */,
 			);
