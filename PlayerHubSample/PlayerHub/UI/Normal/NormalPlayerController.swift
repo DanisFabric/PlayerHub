@@ -9,14 +9,22 @@
 import UIKit
 
 class NormalPlayerController: PlayerControlable {
+    enum FullScreenType {
+        case auto
+        case portrait
+        case landscape
+    }
     
+    var fullScreenType = FullScreenType.auto
     let contentView = UIView()
     let playerView = PlayerView()
     
     let controlView = NormalPlayerControlView()
     
-    private var superviewBeforeFullScreen: UIView?
-    private var frameBeforeFullScreen: CGRect?
+    // 全屏之前需要保存的参数
+    private var originalSuperview: UIView?
+    private var originalFrameInSuperview: CGRect?
+    private var originalFrameInWindow: CGRect?
     
     deinit {
         print("deinit")
@@ -71,18 +79,27 @@ class NormalPlayerController: PlayerControlable {
             guard let window = UIApplication.shared.keyWindow else {
                 return
             }
-            self.superviewBeforeFullScreen = self.contentView.superview
-            self.frameBeforeFullScreen = self.contentView.superview?.convert(self.contentView.frame, to: window)
+            
+            self.originalSuperview = self.contentView.superview
+            self.originalFrameInSuperview = self.contentView.frame
+            self.originalFrameInWindow = self.contentView.superview?.convert(self.contentView.frame, to: window)
             
             self.contentView.removeFromSuperview()
-            
             window.addSubview(self.contentView)
-            if let frameBeforeFullScreen = self.frameBeforeFullScreen {
+            if let frameBeforeFullScreen = self.originalFrameInWindow {
                 self.contentView.frame = frameBeforeFullScreen
             }
             
             UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut, animations: {
-                self.contentView.frame = window.bounds
+                
+                if self.isFullScreenLandscape() {
+                    self.contentView.frame = CGRect(origin: CGPoint(), size: CGSize(width: window.bounds.height, height: window.bounds.width))
+                    self.contentView.center = CGPoint(x: window.bounds.midX, y: window.bounds.midY)
+                    self.contentView.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 2)
+                    print(self.contentView.frame)
+                } else {
+                    self.contentView.frame = window.bounds
+                }
                 self.contentView.setNeedsLayout()
                 self.contentView.layoutIfNeeded()
                 
@@ -92,24 +109,45 @@ class NormalPlayerController: PlayerControlable {
         }
         
         controlView.didTouchToExitFullScreenHandler = { [unowned self] in
-            guard let superviewBeforeFullScreen = self.superviewBeforeFullScreen else {
+            guard let originalSuperview = self.originalSuperview else {
                 return
             }
-            guard let frameBeforeFullScreen = self.frameBeforeFullScreen else {
+            guard let originalFrameInWindow = self.originalFrameInWindow else {
+                return
+            }
+            guard let originalFrameInSuperview = self.originalFrameInSuperview else {
                 return
             }
             
             UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut, animations: {
-                self.contentView.frame = frameBeforeFullScreen
+                if self.isFullScreenLandscape() {
+                    self.contentView.transform = CGAffineTransform.identity
+                }
+                self.contentView.frame = originalFrameInWindow
                 self.contentView.setNeedsLayout()
                 self.contentView.layoutIfNeeded()
             }) { _ in
                 self.contentView.removeFromSuperview()
                 
-                superviewBeforeFullScreen.addSubview(self.contentView)
-                self.contentView.frame = superviewBeforeFullScreen.bounds
+                originalSuperview.addSubview(self.contentView)
+                self.contentView.frame = originalFrameInSuperview
             }
         }
+    }
+    
+    private func isFullScreenLandscape() -> Bool {
+        var isLandscape = false
+        switch self.fullScreenType {
+        case .auto:
+            if let originalFrameInSuperview = originalFrameInSuperview {
+                isLandscape = originalFrameInSuperview.width > originalFrameInSuperview.height
+            }
+        case .portrait:
+            isLandscape = false
+        case .landscape:
+            isLandscape = true
+        }
+        return isLandscape
     }
     
 }
