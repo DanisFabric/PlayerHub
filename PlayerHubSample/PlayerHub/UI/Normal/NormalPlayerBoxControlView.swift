@@ -27,7 +27,7 @@ private class NormalPlayerBottomBar: UIView {
         return temp
     }()
     
-    let slider = PlayerSlider()
+    let slider = BufferedSlider()
     
     let fullScreenButton: UIButton = {
         let temp = UIButton(type: .custom)
@@ -121,6 +121,8 @@ class NormalPlayerControlView: UIView {
     var didTouchToPauseHandler: (() -> Void)?
     var didTouchWillSeekHandler: (() -> Void)?
     var didTouchToSeekHandler: ((TimeInterval) -> Void)?
+    var didTouchToEnterFullScreenHandler: (() -> Void)?
+    var didTouchToExitFullScreenHandler: (() -> Void)?
     
     private let bottomBar = NormalPlayerBottomBar()
     
@@ -183,6 +185,7 @@ class NormalPlayerControlView: UIView {
         bottomBar.slider.addTarget(self, action: #selector(onTouchDown(slider:)), for: .touchDown)
         bottomBar.slider.addTarget(self, action: #selector(onTouchUp(slider:)), for: .touchUpInside)
         bottomBar.slider.addTarget(self, action: #selector(onTouchUp(slider:)), for: .touchUpOutside)
+        bottomBar.fullScreenButton.addTarget(self, action: #selector(onTouch(fullScreenButton:)), for: .touchUpInside)
         addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(onTouchBackground(tap:))))
     }
     
@@ -200,11 +203,11 @@ extension NormalPlayerControlView {
         }
     }
     
-    @objc private func onTouchDown(slider: PlayerSlider) {
+    @objc private func onTouchDown(slider: BufferedSlider) {
         didTouchWillSeekHandler?()
     }
     
-    @objc private func onTouchUp(slider: PlayerSlider) {
+    @objc private func onTouchUp(slider: BufferedSlider) {
         if bottomBar.totalDuration == 0 {
             return
         }
@@ -215,6 +218,16 @@ extension NormalPlayerControlView {
         bottomBar.isHidden = !bottomBar.isHidden
         if !indicatorView.isAnimating {
             playButton.isHidden = bottomBar.isHidden            
+        }
+    }
+    
+    @objc private func onTouch(fullScreenButton: UIButton) {
+        fullScreenButton.isSelected = !fullScreenButton.isSelected
+        
+        if fullScreenButton.isSelected {
+            didTouchToEnterFullScreenHandler?()
+        } else {
+            didTouchToExitFullScreenHandler?()
         }
     }
 }

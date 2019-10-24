@@ -29,6 +29,8 @@ class NormalViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        PlayerHub.shared.register(controller: NormalPlayerController())
+        
         container.backgroundColor = UIColor.red
 
         view.addSubview(container)
@@ -51,7 +53,7 @@ class NormalViewController: UIViewController {
 
     @objc private func onTouch(playButton: UIButton) {
         PlayerHub.shared.addPlayer(to: container)
-//        PlayerHub.shared.replace(with: URL(string: longVideo)!, )
+        PlayerHub.shared.replace(with: URL(string: longVideo)!, coverUrl: nil, placeholder: nil)
     }
     
     @objc private func onTouch(nextButton: AnyObject) {

@@ -15,6 +15,9 @@ class NormalPlayerController: PlayerControlable {
     
     let controlView = NormalPlayerControlView()
     
+    private var superviewBeforeFullScreen: UIView?
+    private var frameBeforeFullScreen: CGRect?
+    
     deinit {
         print("deinit")
     }
@@ -62,6 +65,50 @@ class NormalPlayerController: PlayerControlable {
         controlView.didTouchToSeekHandler = { [unowned self] playedDuration in
             self.playerView.player.seek(to: playedDuration)
             self.playerView.player.play()
+        }
+        
+        controlView.didTouchToEnterFullScreenHandler = { [unowned self] in
+            guard let window = UIApplication.shared.keyWindow else {
+                return
+            }
+            self.superviewBeforeFullScreen = self.contentView.superview
+            self.frameBeforeFullScreen = self.contentView.superview?.convert(self.contentView.frame, to: window)
+            
+            self.contentView.removeFromSuperview()
+            
+            window.addSubview(self.contentView)
+            if let frameBeforeFullScreen = self.frameBeforeFullScreen {
+                self.contentView.frame = frameBeforeFullScreen
+            }
+            
+            UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut, animations: {
+                self.contentView.frame = window.bounds
+                self.contentView.setNeedsLayout()
+                self.contentView.layoutIfNeeded()
+                
+            }) { _ in
+                
+            }
+        }
+        
+        controlView.didTouchToExitFullScreenHandler = { [unowned self] in
+            guard let superviewBeforeFullScreen = self.superviewBeforeFullScreen else {
+                return
+            }
+            guard let frameBeforeFullScreen = self.frameBeforeFullScreen else {
+                return
+            }
+            
+            UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut, animations: {
+                self.contentView.frame = frameBeforeFullScreen
+                self.contentView.setNeedsLayout()
+                self.contentView.layoutIfNeeded()
+            }) { _ in
+                self.contentView.removeFromSuperview()
+                
+                superviewBeforeFullScreen.addSubview(self.contentView)
+                self.contentView.frame = superviewBeforeFullScreen.bounds
+            }
         }
     }
     

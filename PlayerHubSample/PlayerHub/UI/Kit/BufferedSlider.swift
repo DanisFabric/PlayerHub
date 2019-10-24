@@ -8,7 +8,7 @@
 
 import UIKit
 
-extension PlayerSlider {
+extension BufferedSlider {
     private class TrackLayer: CALayer {
         var trackColor = UIColor.white
         
@@ -48,7 +48,7 @@ extension PlayerSlider {
 
 
 
-class PlayerSlider: UIControl {
+class BufferedSlider: UIControl {
     var playedProgress: Double = 0 {
         didSet {
             executeInTransaction {
@@ -246,7 +246,7 @@ class PlayerSlider: UIControl {
     }
 }
 
-extension PlayerSlider {
+extension BufferedSlider {
     private var startX: CGFloat {
         return thumbWidth / 2
     }
