@@ -7,20 +7,26 @@
 //
 
 import Foundation
-
+import UIKit
 
 struct Feed: Codable {
     let image: String
     let video: String
+    
     let title: String?
     let authorName: String?
+    let avatar: String?
+    let videoWidth: CGFloat?
+    let videoHeight: CGFloat?
     
     enum CodingKeys: String, CodingKey {
+        case avatar = "head"
         case image = "thumbnail_url"
         case video = "video_url"
         case title
         case authorName = "nick_name"
-        
+        case videoWidth = "video_width"
+        case videoHeight = "video_height"
     }
     
     
@@ -30,6 +36,13 @@ struct Feed: Codable {
     
     var videoURL: URL {
         return URL(string: video)!
+    }
+    
+    var avatarURL: URL? {
+        if let avatar = avatar {
+            return URL(string: avatar)
+        }
+        return nil
     }
     
 }

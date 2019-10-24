@@ -93,10 +93,8 @@ class Player: NSObject {
     var duration: TimeInterval {
         return currentItem?.duration.seconds ?? 0
     }
-    private(set) var playedDuration: TimeInterval = 0 {
-        didSet {
-            playedDurationDidChangeHandler?(playedDuration, duration)
-        }
+    var playedDuration: TimeInterval {
+        return currentItem?.currentTime().seconds ?? 0
     }
     
     // Private
