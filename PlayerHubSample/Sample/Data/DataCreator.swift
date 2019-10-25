@@ -44,13 +44,16 @@ struct Feed: Codable {
         }
         return nil
     }
+}
+
+struct Comment {
     
 }
 
 
 struct DataCreator {
     static func createFeeds() -> [Feed] {
-        let path = Bundle.main.url(forResource: "data", withExtension: "json")!
+        let path = Bundle.main.url(forResource: "feeds", withExtension: "json")!
         let data = try! Data.init(contentsOf: path)
         
         return try! JSONDecoder().decode([Feed].self, from: data)

@@ -8,8 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		486727032476DD1064A82D09 /* Pods_PlayerHubSample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F55779E7B43E2CA5A8A027B /* Pods_PlayerHubSample.framework */; };
-		B716A9A6235E9BE0005303A8 /* data.json in Resources */ = {isa = PBXBuildFile; fileRef = B716A9A5235E9BE0005303A8 /* data.json */; };
+		B716A9A6235E9BE0005303A8 /* feeds.json in Resources */ = {isa = PBXBuildFile; fileRef = B716A9A5235E9BE0005303A8 /* feeds.json */; };
 		B716A9A9235E9C77005303A8 /* DataCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B716A9A8235E9C77005303A8 /* DataCreator.swift */; };
+		B71C8827236289A000DF2D3E /* comments.json in Resources */ = {isa = PBXBuildFile; fileRef = B71C8826236289A000DF2D3E /* comments.json */; };
+		B71C8829236289E500DF2D3E /* FeedDetailHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71C8828236289E500DF2D3E /* FeedDetailHeaderView.swift */; };
+		B71C882B2362952F00DF2D3E /* FeedTestHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71C882A2362952F00DF2D3E /* FeedTestHeaderView.swift */; };
 		B721358423604AF70069BB38 /* PlayerControlable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B721358323604AF70069BB38 /* PlayerControlable.swift */; };
 		B721358623604E1F0069BB38 /* NormalPlayerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B721358523604E1F0069BB38 /* NormalPlayerController.swift */; };
 		B727A11D234F0C800026B2C1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B727A11C234F0C800026B2C1 /* AppDelegate.swift */; };
@@ -34,8 +37,11 @@
 		0B8AEB7A9EA40241F7E5B38C /* Pods-PlayerHubSample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PlayerHubSample.release.xcconfig"; path = "Target Support Files/Pods-PlayerHubSample/Pods-PlayerHubSample.release.xcconfig"; sourceTree = "<group>"; };
 		0F55779E7B43E2CA5A8A027B /* Pods_PlayerHubSample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PlayerHubSample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2FCF25D08B2F136CBEDA3D53 /* Pods-PlayerHubSample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PlayerHubSample.debug.xcconfig"; path = "Target Support Files/Pods-PlayerHubSample/Pods-PlayerHubSample.debug.xcconfig"; sourceTree = "<group>"; };
-		B716A9A5235E9BE0005303A8 /* data.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = data.json; sourceTree = "<group>"; };
+		B716A9A5235E9BE0005303A8 /* feeds.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = feeds.json; sourceTree = "<group>"; };
 		B716A9A8235E9C77005303A8 /* DataCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataCreator.swift; sourceTree = "<group>"; };
+		B71C8826236289A000DF2D3E /* comments.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = comments.json; sourceTree = "<group>"; };
+		B71C8828236289E500DF2D3E /* FeedDetailHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedDetailHeaderView.swift; sourceTree = "<group>"; };
+		B71C882A2362952F00DF2D3E /* FeedTestHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedTestHeaderView.swift; sourceTree = "<group>"; };
 		B721358323604AF70069BB38 /* PlayerControlable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerControlable.swift; sourceTree = "<group>"; };
 		B721358523604E1F0069BB38 /* NormalPlayerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NormalPlayerController.swift; sourceTree = "<group>"; };
 		B727A119234F0C800026B2C1 /* PlayerHubSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlayerHubSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -73,7 +79,8 @@
 		B716A9A4235E9BD2005303A8 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
-				B716A9A5235E9BE0005303A8 /* data.json */,
+				B71C8826236289A000DF2D3E /* comments.json */,
+				B716A9A5235E9BE0005303A8 /* feeds.json */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
@@ -160,8 +167,8 @@
 		B727A13F23516B8E0026B2C1 /* Sample */ = {
 			isa = PBXGroup;
 			children = (
-				B7890C602361930100C0B4B9 /* Utils */,
 				B716A9A7235E9C67005303A8 /* Data */,
+				B7890C602361930100C0B4B9 /* Utils */,
 				B776194D235D4A3D00D64893 /* DouyinList */,
 				B7890C582361790900C0B4B9 /* FeedList */,
 			);
@@ -207,6 +214,8 @@
 			isa = PBXGroup;
 			children = (
 				B7890C5C2361794800C0B4B9 /* FeedCell.swift */,
+				B71C8828236289E500DF2D3E /* FeedDetailHeaderView.swift */,
+				B71C882A2362952F00DF2D3E /* FeedTestHeaderView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -308,7 +317,8 @@
 				B727A129234F0C820026B2C1 /* LaunchScreen.storyboard in Resources */,
 				B727A126234F0C820026B2C1 /* Assets.xcassets in Resources */,
 				B727A124234F0C800026B2C1 /* Main.storyboard in Resources */,
-				B716A9A6235E9BE0005303A8 /* data.json in Resources */,
+				B71C8827236289A000DF2D3E /* comments.json in Resources */,
+				B716A9A6235E9BE0005303A8 /* feeds.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -368,8 +378,10 @@
 				B727A13B235028760026B2C1 /* NormalPlayerBoxControlView.swift in Sources */,
 				B727A11D234F0C800026B2C1 /* AppDelegate.swift in Sources */,
 				B721358623604E1F0069BB38 /* NormalPlayerController.swift in Sources */,
+				B71C882B2362952F00DF2D3E /* FeedTestHeaderView.swift in Sources */,
 				B727A13E235029BC0026B2C1 /* BufferedSlider.swift in Sources */,
 				B7890C5A2361792C00C0B4B9 /* FeedListTableViewController.swift in Sources */,
+				B71C8829236289E500DF2D3E /* FeedDetailHeaderView.swift in Sources */,
 				B727A135234F0CAD0026B2C1 /* PlayerView.swift in Sources */,
 				B7890C5F2361797A00C0B4B9 /* FeedDetailViewController.swift in Sources */,
 				B716A9A9235E9C77005303A8 /* DataCreator.swift in Sources */,

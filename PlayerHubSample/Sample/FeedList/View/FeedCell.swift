@@ -9,52 +9,53 @@
 import UIKit
 import Kingfisher
 
-class FeedCell: UITableViewCell {
-    private class UserBar: UIView {
-        let avatarImageView: UIImageView = {
-            let temp = UIImageView()
-            temp.backgroundColor = UIColor(hex: 0xeeeeee)
-            
-            return temp
-        }()
+class FeedUserBar: UIView {
+    let avatarImageView: UIImageView = {
+        let temp = UIImageView()
+        temp.backgroundColor = UIColor(hex: 0xeeeeee)
         
-        let nameLabel: UILabel = {
-            let temp = UILabel()
-            temp.textColor = UIColor.black
-            temp.font = UIFont.systemFont(ofSize: 16)
-            
-            return temp
-        }()
+        return temp
+    }()
+    
+    let nameLabel: UILabel = {
+        let temp = UILabel()
+        temp.textColor = UIColor.black
+        temp.font = UIFont.systemFont(ofSize: 16)
         
-        override init(frame: CGRect) {
-            super.init(frame: frame)
-            
-            addSubview(avatarImageView)
-            addSubview(nameLabel)
-            
-            avatarImageView.layer.cornerRadius = 16
-            avatarImageView.layer.masksToBounds = true
-            avatarImageView.snp.makeConstraints { (make) in
-                make.left.equalToSuperview().offset(12)
-                make.centerY.equalToSuperview()
-                make.width.height.equalTo(32)
-            }
-            
-            nameLabel.snp.makeConstraints { (make) in
-                make.left.equalTo(avatarImageView.snp.right).offset(8)
-                make.centerY.equalTo(avatarImageView)
-            }
+        return temp
+    }()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        addSubview(avatarImageView)
+        addSubview(nameLabel)
+        
+        avatarImageView.layer.cornerRadius = 16
+        avatarImageView.layer.masksToBounds = true
+        avatarImageView.snp.makeConstraints { (make) in
+            make.left.equalToSuperview().offset(12)
+            make.centerY.equalToSuperview()
+            make.width.height.equalTo(32)
         }
         
-        required init?(coder: NSCoder) {
-            fatalError("init(coder:) has not been implemented")
+        nameLabel.snp.makeConstraints { (make) in
+            make.left.equalTo(avatarImageView.snp.right).offset(8)
+            make.centerY.equalTo(avatarImageView)
         }
     }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
+class FeedCell: UITableViewCell {
     
     var didTouchToPlayHandler: (() -> Void)?
     
     
-    private let userBar = UserBar()
+    private let userBar = FeedUserBar()
     
     let titleLabel: UILabel = {
         let temp = UILabel()
@@ -98,6 +99,8 @@ class FeedCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
+        selectionStyle = .none
         
         contentView.addSubview(userBar)
         contentView.addSubview(titleLabel)

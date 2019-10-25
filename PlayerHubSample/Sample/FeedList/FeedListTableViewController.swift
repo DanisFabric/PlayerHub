@@ -59,4 +59,10 @@ class FeedListTableViewController: UITableViewController {
         }
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let feed = feeds[indexPath.row]
+        
+        let detailVC = FeedDetailViewController(feed: feed)
+        navigationController?.pushViewController(detailVC, animated: true)
+    }
 }
