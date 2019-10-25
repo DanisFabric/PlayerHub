@@ -13,7 +13,11 @@
 		B71C8827236289A000DF2D3E /* comments.json in Resources */ = {isa = PBXBuildFile; fileRef = B71C8826236289A000DF2D3E /* comments.json */; };
 		B71C8829236289E500DF2D3E /* FeedDetailHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71C8828236289E500DF2D3E /* FeedDetailHeaderView.swift */; };
 		B71C882B2362952F00DF2D3E /* FeedTestHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71C882A2362952F00DF2D3E /* FeedTestHeaderView.swift */; };
-		B721358423604AF70069BB38 /* PlayerControlable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B721358323604AF70069BB38 /* PlayerControlable.swift */; };
+		B71C882E2362A3A000DF2D3E /* DouyinPlayerControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71C882D2362A3A000DF2D3E /* DouyinPlayerControlView.swift */; };
+		B71C88302362A3B000DF2D3E /* DouyinPlayerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71C882F2362A3B000DF2D3E /* DouyinPlayerController.swift */; };
+		B71C88322362A42C00DF2D3E /* DouyinLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71C88312362A42C00DF2D3E /* DouyinLoadingView.swift */; };
+		B71C88352362D30E00DF2D3E /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71C88342362D30E00DF2D3E /* TestViewController.swift */; };
+		B721358423604AF70069BB38 /* PlayerControllable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B721358323604AF70069BB38 /* PlayerControllable.swift */; };
 		B721358623604E1F0069BB38 /* NormalPlayerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B721358523604E1F0069BB38 /* NormalPlayerController.swift */; };
 		B727A11D234F0C800026B2C1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B727A11C234F0C800026B2C1 /* AppDelegate.swift */; };
 		B727A11F234F0C800026B2C1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B727A11E234F0C800026B2C1 /* SceneDelegate.swift */; };
@@ -22,7 +26,7 @@
 		B727A129234F0C820026B2C1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B727A127234F0C820026B2C1 /* LaunchScreen.storyboard */; };
 		B727A133234F0CA20026B2C1 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = B727A132234F0CA20026B2C1 /* Player.swift */; };
 		B727A135234F0CAD0026B2C1 /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B727A134234F0CAD0026B2C1 /* PlayerView.swift */; };
-		B727A13B235028760026B2C1 /* NormalPlayerBoxControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B727A13A235028760026B2C1 /* NormalPlayerBoxControlView.swift */; };
+		B727A13B235028760026B2C1 /* NormalPlayerControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B727A13A235028760026B2C1 /* NormalPlayerControlView.swift */; };
 		B727A13E235029BC0026B2C1 /* BufferedSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B727A13D235029BC0026B2C1 /* BufferedSlider.swift */; };
 		B776194F235D4A5A00D64893 /* DouyinListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B776194E235D4A5A00D64893 /* DouyinListTableViewController.swift */; };
 		B7761952235D4B2700D64893 /* DouyinCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7761951235D4B2700D64893 /* DouyinCell.swift */; };
@@ -42,7 +46,11 @@
 		B71C8826236289A000DF2D3E /* comments.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = comments.json; sourceTree = "<group>"; };
 		B71C8828236289E500DF2D3E /* FeedDetailHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedDetailHeaderView.swift; sourceTree = "<group>"; };
 		B71C882A2362952F00DF2D3E /* FeedTestHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedTestHeaderView.swift; sourceTree = "<group>"; };
-		B721358323604AF70069BB38 /* PlayerControlable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerControlable.swift; sourceTree = "<group>"; };
+		B71C882D2362A3A000DF2D3E /* DouyinPlayerControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DouyinPlayerControlView.swift; sourceTree = "<group>"; };
+		B71C882F2362A3B000DF2D3E /* DouyinPlayerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DouyinPlayerController.swift; sourceTree = "<group>"; };
+		B71C88312362A42C00DF2D3E /* DouyinLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DouyinLoadingView.swift; sourceTree = "<group>"; };
+		B71C88342362D30E00DF2D3E /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
+		B721358323604AF70069BB38 /* PlayerControllable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerControllable.swift; sourceTree = "<group>"; };
 		B721358523604E1F0069BB38 /* NormalPlayerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NormalPlayerController.swift; sourceTree = "<group>"; };
 		B727A119234F0C800026B2C1 /* PlayerHubSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlayerHubSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B727A11C234F0C800026B2C1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -53,7 +61,7 @@
 		B727A12A234F0C820026B2C1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B727A132234F0CA20026B2C1 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		B727A134234F0CAD0026B2C1 /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
-		B727A13A235028760026B2C1 /* NormalPlayerBoxControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NormalPlayerBoxControlView.swift; sourceTree = "<group>"; };
+		B727A13A235028760026B2C1 /* NormalPlayerControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NormalPlayerControlView.swift; sourceTree = "<group>"; };
 		B727A13D235029BC0026B2C1 /* BufferedSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BufferedSlider.swift; sourceTree = "<group>"; };
 		B776194E235D4A5A00D64893 /* DouyinListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DouyinListTableViewController.swift; sourceTree = "<group>"; };
 		B7761951235D4B2700D64893 /* DouyinCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DouyinCell.swift; sourceTree = "<group>"; };
@@ -88,9 +96,25 @@
 		B716A9A7235E9C67005303A8 /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				B716A9A8235E9C77005303A8 /* DataCreator.swift */,
 			);
 			path = Data;
+			sourceTree = "<group>";
+		};
+		B71C882C2362A38500DF2D3E /* Douyin */ = {
+			isa = PBXGroup;
+			children = (
+				B71C882D2362A3A000DF2D3E /* DouyinPlayerControlView.swift */,
+				B71C882F2362A3B000DF2D3E /* DouyinPlayerController.swift */,
+			);
+			path = Douyin;
+			sourceTree = "<group>";
+		};
+		B71C88332362D2FC00DF2D3E /* Test */ = {
+			isa = PBXGroup;
+			children = (
+				B71C88342362D30E00DF2D3E /* TestViewController.swift */,
+			);
+			path = Test;
 			sourceTree = "<group>";
 		};
 		B727A110234F0C800026B2C1 = {
@@ -150,6 +174,7 @@
 			isa = PBXGroup;
 			children = (
 				B742D007236050C60074D1DE /* Kit */,
+				B71C882C2362A38500DF2D3E /* Douyin */,
 				B727A139235028540026B2C1 /* Normal */,
 			);
 			path = UI;
@@ -158,7 +183,7 @@
 		B727A139235028540026B2C1 /* Normal */ = {
 			isa = PBXGroup;
 			children = (
-				B727A13A235028760026B2C1 /* NormalPlayerBoxControlView.swift */,
+				B727A13A235028760026B2C1 /* NormalPlayerControlView.swift */,
 				B721358523604E1F0069BB38 /* NormalPlayerController.swift */,
 			);
 			path = Normal;
@@ -168,7 +193,9 @@
 			isa = PBXGroup;
 			children = (
 				B716A9A7235E9C67005303A8 /* Data */,
+				B716A9A8235E9C77005303A8 /* DataCreator.swift */,
 				B7890C602361930100C0B4B9 /* Utils */,
+				B71C88332362D2FC00DF2D3E /* Test */,
 				B776194D235D4A3D00D64893 /* DouyinList */,
 				B7890C582361790900C0B4B9 /* FeedList */,
 			);
@@ -179,6 +206,7 @@
 			isa = PBXGroup;
 			children = (
 				B727A13D235029BC0026B2C1 /* BufferedSlider.swift */,
+				B71C88312362A42C00DF2D3E /* DouyinLoadingView.swift */,
 			);
 			path = Kit;
 			sourceTree = "<group>";
@@ -232,7 +260,7 @@
 			isa = PBXGroup;
 			children = (
 				B7E8B700235461380076A837 /* PlayerHub.swift */,
-				B721358323604AF70069BB38 /* PlayerControlable.swift */,
+				B721358323604AF70069BB38 /* PlayerControllable.swift */,
 			);
 			path = Hub;
 			sourceTree = "<group>";
@@ -371,11 +399,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B71C88302362A3B000DF2D3E /* DouyinPlayerController.swift in Sources */,
 				B7761952235D4B2700D64893 /* DouyinCell.swift in Sources */,
+				B71C88352362D30E00DF2D3E /* TestViewController.swift in Sources */,
 				B727A133234F0CA20026B2C1 /* Player.swift in Sources */,
+				B71C88322362A42C00DF2D3E /* DouyinLoadingView.swift in Sources */,
 				B7E8B701235461380076A837 /* PlayerHub.swift in Sources */,
 				B776194F235D4A5A00D64893 /* DouyinListTableViewController.swift in Sources */,
-				B727A13B235028760026B2C1 /* NormalPlayerBoxControlView.swift in Sources */,
+				B727A13B235028760026B2C1 /* NormalPlayerControlView.swift in Sources */,
 				B727A11D234F0C800026B2C1 /* AppDelegate.swift in Sources */,
 				B721358623604E1F0069BB38 /* NormalPlayerController.swift in Sources */,
 				B71C882B2362952F00DF2D3E /* FeedTestHeaderView.swift in Sources */,
@@ -386,8 +417,9 @@
 				B7890C5F2361797A00C0B4B9 /* FeedDetailViewController.swift in Sources */,
 				B716A9A9235E9C77005303A8 /* DataCreator.swift in Sources */,
 				B7890C5D2361794800C0B4B9 /* FeedCell.swift in Sources */,
+				B71C882E2362A3A000DF2D3E /* DouyinPlayerControlView.swift in Sources */,
 				B7890C622361931000C0B4B9 /* UIColor+hex.swift in Sources */,
-				B721358423604AF70069BB38 /* PlayerControlable.swift in Sources */,
+				B721358423604AF70069BB38 /* PlayerControllable.swift in Sources */,
 				B727A11F234F0C800026B2C1 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol PlayerControlable {
+protocol PlayerControllable {
     var gravity: Player.Gravity { get set }
     var playerView: PlayerView { get }
     var contentView: UIView { get }

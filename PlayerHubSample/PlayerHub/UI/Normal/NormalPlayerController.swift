@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NormalPlayerController: PlayerControlable {
+class NormalPlayerController: PlayerControllable {
     enum FullScreenType {
         case auto
         case portrait

@@ -11,13 +11,13 @@ import UIKit
 class PlayerHub {
     static let shared = PlayerHub()
     
-    var controller: PlayerControlable!
+    var controller: PlayerControllable!
     
     private init() {
         
     }
     
-    func register(controller: PlayerControlable) {
+    func register(controller: PlayerControllable) {
         self.controller = controller
     }
     
