@@ -38,7 +38,7 @@ class TestViewController: UIViewController {
         loadingView.snp.makeConstraints { (make) in
             make.left.right.equalToSuperview()
             make.centerY.equalToSuperview()
-            make.height.equalTo(2)
+            make.height.equalTo(1)
         }
         
         startButton.snp.makeConstraints { (make) in

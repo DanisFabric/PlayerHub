@@ -9,24 +9,52 @@
 import UIKit
 import Kingfisher
 
-class DouyinListTableViewController: UITableViewController {
+class DouyinVideoListViewController: UIViewController {
     
     
     var feeds = DataCreator.createFeeds()
     
     private var playingIndexPath: IndexPath?
+    
+    private lazy var tableView: UITableView = {
+        let temp = UITableView()
+        temp.backgroundColor = UIColor.black
+        temp.register(DouyinCell.self, forCellReuseIdentifier: "ItemCell")
+        temp.isPagingEnabled = true
+        temp.contentInsetAdjustmentBehavior = .never
+        temp.dataSource = self
+        temp.delegate = self
+        
+        return temp
+    }()
+    
+    private let backButton: UIButton = {
+        let temp = UIButton(type: .system)
+        temp.setImage(UIImage(named: "navigation_back"), for: .normal)
+        temp.tintColor = UIColor.white
+        
+        return temp
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        PlayerHub.shared.register(controller: NormalPlayerController())
+        PlayerHub.shared.register(controller: DouyinPlayerController())
 
-        tableView.backgroundColor = UIColor.black
-        tableView.register(DouyinCell.self, forCellReuseIdentifier: "ItemCell")
-        tableView.isPagingEnabled = true
-        tableView.contentInsetAdjustmentBehavior = .never
-
+        view.addSubview(tableView)
+        view.addSubview(backButton)
         
+        tableView.snp.makeConstraints { (make) in
+            make.edges.equalToSuperview()
+        }
+        
+        backButton.snp.makeConstraints { (make) in
+            make.left.equalToSuperview().offset(12)
+            make.top.equalTo(view.safeAreaLayoutGuide)
+            make.width.height.equalTo(44)
+        }
+        
+        backButton.addTarget(self, action: #selector(onTouch(backButton:)), for: .touchUpInside)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -40,21 +68,26 @@ class DouyinListTableViewController: UITableViewController {
         
         navigationController?.setNavigationBarHidden(false, animated: animated)
     }
+    
+    @objc private func onTouch(backButton: UIButton) {
+        navigationController?.popViewController(animated: true)
+    }
+}
 
-    override func numberOfSections(in tableView: UITableView) -> Int {
+extension DouyinVideoListViewController: UITableViewDataSource, UITableViewDelegate {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return feeds.count
     }
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let current = feeds[indexPath.row]
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "ItemCell") as! DouyinCell
         cell.videoImageView.kf.setImage(with: URL(string: current.image))
-        
         
         cell.didTouchToPlayHandler = { [unowned self] in
             self.autoPlayIfNeeded()
@@ -63,15 +96,15 @@ class DouyinListTableViewController: UITableViewController {
         return cell
     }
     
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return view.bounds.height
     }
 
-    override func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
         autoPlayIfNeeded()
     }
     
-    override func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         autoPlayIfNeeded()
     }
     

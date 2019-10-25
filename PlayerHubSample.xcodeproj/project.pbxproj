@@ -28,7 +28,7 @@
 		B727A135234F0CAD0026B2C1 /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B727A134234F0CAD0026B2C1 /* PlayerView.swift */; };
 		B727A13B235028760026B2C1 /* NormalPlayerControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B727A13A235028760026B2C1 /* NormalPlayerControlView.swift */; };
 		B727A13E235029BC0026B2C1 /* BufferedSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B727A13D235029BC0026B2C1 /* BufferedSlider.swift */; };
-		B776194F235D4A5A00D64893 /* DouyinListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B776194E235D4A5A00D64893 /* DouyinListTableViewController.swift */; };
+		B776194F235D4A5A00D64893 /* DouyinVideoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B776194E235D4A5A00D64893 /* DouyinVideoListViewController.swift */; };
 		B7761952235D4B2700D64893 /* DouyinCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7761951235D4B2700D64893 /* DouyinCell.swift */; };
 		B7890C5A2361792C00C0B4B9 /* FeedListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7890C592361792C00C0B4B9 /* FeedListTableViewController.swift */; };
 		B7890C5D2361794800C0B4B9 /* FeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7890C5C2361794800C0B4B9 /* FeedCell.swift */; };
@@ -63,7 +63,7 @@
 		B727A134234F0CAD0026B2C1 /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
 		B727A13A235028760026B2C1 /* NormalPlayerControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NormalPlayerControlView.swift; sourceTree = "<group>"; };
 		B727A13D235029BC0026B2C1 /* BufferedSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BufferedSlider.swift; sourceTree = "<group>"; };
-		B776194E235D4A5A00D64893 /* DouyinListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DouyinListTableViewController.swift; sourceTree = "<group>"; };
+		B776194E235D4A5A00D64893 /* DouyinVideoListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DouyinVideoListViewController.swift; sourceTree = "<group>"; };
 		B7761951235D4B2700D64893 /* DouyinCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DouyinCell.swift; sourceTree = "<group>"; };
 		B7890C592361792C00C0B4B9 /* FeedListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedListTableViewController.swift; sourceTree = "<group>"; };
 		B7890C5C2361794800C0B4B9 /* FeedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCell.swift; sourceTree = "<group>"; };
@@ -215,7 +215,7 @@
 			isa = PBXGroup;
 			children = (
 				B7761950235D4B1600D64893 /* View */,
-				B776194E235D4A5A00D64893 /* DouyinListTableViewController.swift */,
+				B776194E235D4A5A00D64893 /* DouyinVideoListViewController.swift */,
 			);
 			path = DouyinList;
 			sourceTree = "<group>";
@@ -405,7 +405,7 @@
 				B727A133234F0CA20026B2C1 /* Player.swift in Sources */,
 				B71C88322362A42C00DF2D3E /* DouyinLoadingView.swift in Sources */,
 				B7E8B701235461380076A837 /* PlayerHub.swift in Sources */,
-				B776194F235D4A5A00D64893 /* DouyinListTableViewController.swift in Sources */,
+				B776194F235D4A5A00D64893 /* DouyinVideoListViewController.swift in Sources */,
 				B727A13B235028760026B2C1 /* NormalPlayerControlView.swift in Sources */,
 				B727A11D234F0C800026B2C1 /* AppDelegate.swift in Sources */,
 				B721358623604E1F0069BB38 /* NormalPlayerController.swift in Sources */,

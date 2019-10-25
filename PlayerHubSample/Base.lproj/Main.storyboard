@@ -55,7 +55,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="gMB-YE-x4W" kind="show" id="0fh-Ea-PpJ"/>
+                                            <segue destination="wBf-ke-CTc" kind="show" id="qIV-Iu-vkN"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" textLabel="z9E-MA-QC9" style="IBUITableViewCellStyleDefault" id="JUT-5W-uie">
@@ -92,6 +92,22 @@
             </objects>
             <point key="canvasLocation" x="-1104" y="139"/>
         </scene>
+        <!--Douyin Video List View Controller-->
+        <scene sceneID="Fid-8U-ald">
+            <objects>
+                <viewController id="wBf-ke-CTc" customClass="DouyinVideoListViewController" customModule="PlayerHubSample" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Shd-9e-DkX">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="1II-1m-IyP"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="KCe-LV-yrR"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Pef-Ch-13a" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-216" y="182"/>
+        </scene>
         <!--Feed List Table View Controller-->
         <scene sceneID="p2W-lo-SBh">
             <objects>
@@ -120,35 +136,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rsg-MF-jhu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-251" y="-478"/>
-        </scene>
-        <!--Douyin List Table View Controller-->
-        <scene sceneID="Uva-J7-stJ">
-            <objects>
-                <tableViewController id="gMB-YE-x4W" customClass="DouyinListTableViewController" customModule="PlayerHubSample" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="pxF-2j-CJl">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="fUA-fk-ztr">
-                                <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="fUA-fk-ztr" id="rg9-LP-mvs">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="gMB-YE-x4W" id="XNc-un-0FS"/>
-                            <outlet property="delegate" destination="gMB-YE-x4W" id="zJW-W9-oOH"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" id="V8a-AR-99S"/>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="cNM-nb-oAD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-238" y="211"/>
         </scene>
         <!--Test View Controller-->
         <scene sceneID="qzY-Xi-jAn">
