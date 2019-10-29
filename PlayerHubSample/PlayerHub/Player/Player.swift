@@ -136,8 +136,10 @@ extension Player {
         if currentItem != nil {
             stop()
         }
-        currentAsset = AVAsset(url: url)
-        currentItem = AVPlayerItem(asset: currentAsset!)
+        let asset = AVURLAsset(url: url)
+//        asset.resourceLoader.setDelegate(<#T##delegate: AVAssetResourceLoaderDelegate?##AVAssetResourceLoaderDelegate?#>, queue: <#T##DispatchQueue?#>)
+        currentAsset = asset
+        currentItem = AVPlayerItem(asset: asset)
         
         addItemObservers()
         
