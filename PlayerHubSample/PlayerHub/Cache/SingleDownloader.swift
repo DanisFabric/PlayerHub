@@ -38,15 +38,6 @@ class SingleDownloader: NSObject {
 
 
 extension SingleDownloader: URLSessionDelegate, URLSessionDataDelegate {
-//    func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
-//        if let trust = challenge.protectionSpace.serverTrust {
-//            let card = URLCredential(trust: trust)
-//            completionHandler(URLSession.AuthChallengeDisposition.useCredential, card)
-//        } else {
-//            completionHandler(URLSession.AuthChallengeDisposition.cancelAuthenticationChallenge, nil)
-//        }
-//    }
-    
     func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive response: URLResponse, completionHandler: @escaping (URLSession.ResponseDisposition) -> Void) {
         didReceiveResponseHandler?(response)
         

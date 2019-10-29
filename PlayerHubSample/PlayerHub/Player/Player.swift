@@ -97,6 +97,7 @@ class Player: NSObject {
         return currentItem?.currentTime().seconds ?? 0
     }
     
+    
     // Private
     private weak var playerLayer: AVPlayerLayer?
     private var toPlay = false
@@ -108,6 +109,11 @@ class Player: NSObject {
     
     private var isPlayingWhenEnterBackground = false
     private var isPlayingWhenResignActive = false
+
+    // Cache
+    var isCacheEnable = true
+    private var resourceLoaderDelegate: ResourceLoaderDelegate?
+    
     var isPlaying: Bool {
         return player.rate != 0
     }
@@ -136,8 +142,14 @@ extension Player {
         if currentItem != nil {
             stop()
         }
-        let asset = AVURLAsset(url: url)
-//        asset.resourceLoader.setDelegate(<#T##delegate: AVAssetResourceLoaderDelegate?##AVAssetResourceLoaderDelegate?#>, queue: <#T##DispatchQueue?#>)
+        let asset: AVURLAsset
+        if isCacheEnable {
+            asset = AVURLAsset(url: CacheURL.cachableURL(from: url))
+            resourceLoaderDelegate = ResourceLoaderDelegate()
+            asset.resourceLoader.setDelegate(resourceLoaderDelegate!, queue: DispatchQueue.main)
+        } else {
+            asset = AVURLAsset(url: url)
+        }
         currentAsset = asset
         currentItem = AVPlayerItem(asset: asset)
         
