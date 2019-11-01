@@ -23,8 +23,8 @@ struct MediaContentInfo: Codable {
             headers[lowercased] = response.allHeaderFields[key]
         }
         isByteRangeAccessSupported = (headers["accept-ranges"] as? String) == "bytes"
-        if let contentLengthText = headers["content-length"] as? String, let contentLength = Int64(contentLengthText) {
-            self.contentLength = contentLength
+        if let rangeText = headers["content-range"] as? String, let lengthText = rangeText.split(separator: "/").last {
+            contentLength = Int64(lengthText)!
         } else {
             return nil
         }

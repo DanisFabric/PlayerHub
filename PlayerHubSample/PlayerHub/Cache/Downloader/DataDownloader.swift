@@ -21,8 +21,8 @@ class DataDownloader: NSObject {
         
         init(sourceURL: URL, offsetBytes: Int64, contentBytes: Int64?, session: URLSession) {
             var request = URLRequest(url: sourceURL)
-            if let contentBytes = contentBytes {
-                request.setValue("bytes=\(offsetBytes)-\(contentBytes)", forHTTPHeaderField: "Range")
+            if let contentBytes = contentBytes, contentBytes > 0 {
+                request.setValue("bytes=\(offsetBytes)-\(offsetBytes + contentBytes - 1)", forHTTPHeaderField: "Range")
             } else {
                 request.setValue("bytes=\(offsetBytes)-", forHTTPHeaderField: "Range")
             }

@@ -74,6 +74,9 @@ class Player: NSObject {
                 statusDidChangeHandler?(status)
                 
                 print("status changed -> \(status)")
+                if status == .failed {
+                    print("error -> \(error)")
+                }
                 
                 if status == .end && loopMode == .always {
                     seek(to: 0)
@@ -310,15 +313,15 @@ extension Player {
         }
         
         if let error = player.error {
-            self.status = .failed
             self.error = error
+            self.status = .failed
             
             return
         }
         
         if let error = currentItem.error {
-            self.status = .failed
             self.error = error
+            self.status = .failed
             
             return
         }

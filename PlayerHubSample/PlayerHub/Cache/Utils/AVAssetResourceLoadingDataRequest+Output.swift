@@ -55,8 +55,11 @@ extension AVAssetResourceLoadingRequest {
         if isFinished {
             return
         }
-        
-        finishLoading(with: error)
+        if let error = error {
+            finishLoading(with: error)
+        } else {
+            finishLoading()
+        }
     }
     
     
