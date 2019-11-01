@@ -8,19 +8,19 @@
 
 import Foundation
 
-private let CacheURLPrefix = "PlayerCachable"
+private let CacheURLPrefix = "PlayerCachable."
 
 struct CacheURL {
-    static func isCachable(url: URL) -> Bool {
+    static func containsCacheScheme(url: URL) -> Bool {
         return url.absoluteString.hasPrefix(CacheURLPrefix)
     }
     
-    static func cachableURL(from url: URL) -> URL {
+    static func addCacheScheme(from url: URL) -> URL {
         return URL(string: CacheURLPrefix + url.absoluteString)!
     }
     
-    static func normalURL(from url: URL) -> URL {
-        if isCachable(url: url) {
+    static func removeCacheScheme(from url: URL) -> URL {
+        if containsCacheScheme(url: url) {
             return URL(string: url.absoluteString.replacingOccurrences(of: CacheURLPrefix, with: ""))!
         } else {
             return url

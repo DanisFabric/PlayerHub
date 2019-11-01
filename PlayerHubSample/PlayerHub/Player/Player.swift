@@ -112,7 +112,7 @@ class Player: NSObject {
 
     // Cache
     var isCacheEnable = true
-    private var resourceLoaderDelegate: ResourceLoaderDelegate?
+    private var resourceLoaderDelegate: ResourceLoaderProxy?
     
     var isPlaying: Bool {
         return player.rate != 0
@@ -142,10 +142,14 @@ extension Player {
         if currentItem != nil {
             stop()
         }
+        
+        resourceLoaderDelegate?.cancel()
+        resourceLoaderDelegate = nil
+        
         let asset: AVURLAsset
         if isCacheEnable {
-            asset = AVURLAsset(url: CacheURL.cachableURL(from: url))
-            resourceLoaderDelegate = ResourceLoaderDelegate()
+            asset = AVURLAsset(url: CacheURL.addCacheScheme(from: url))
+            resourceLoaderDelegate = ResourceLoaderProxy()
             asset.resourceLoader.setDelegate(resourceLoaderDelegate!, queue: DispatchQueue.main)
         } else {
             asset = AVURLAsset(url: url)

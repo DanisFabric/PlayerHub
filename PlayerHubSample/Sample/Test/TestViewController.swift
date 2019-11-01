@@ -38,6 +38,9 @@ class TestViewController: UIViewController {
         }
         
         downloader.didReceiveResponseHandler = { response in
+            if let info = MediaContentInfo(response: response as! HTTPURLResponse) {
+                print(info)
+            }
             print("didReceiveResponse -> \(response)")
         }
         
