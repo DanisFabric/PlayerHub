@@ -26,5 +26,4 @@ struct CacheURL {
             return url
         }
     }
-    
 }

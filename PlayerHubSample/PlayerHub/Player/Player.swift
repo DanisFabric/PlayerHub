@@ -100,7 +100,6 @@ class Player: NSObject {
         return currentItem?.currentTime().seconds ?? 0
     }
     
-    
     // Private
     private weak var playerLayer: AVPlayerLayer?
     private var toPlay = false
@@ -112,6 +111,8 @@ class Player: NSObject {
     
     private var isPlayingWhenEnterBackground = false
     private var isPlayingWhenResignActive = false
+    
+    private let resourceLoaderDelegateQueue = DispatchQueue(label: "com.danis.Player.resourceLoaderDelegateQueue", attributes: .concurrent)
 
     // Cache
     var isCacheEnable = true
@@ -153,7 +154,7 @@ extension Player {
         if isCacheEnable {
             asset = AVURLAsset(url: CacheURL.addCacheScheme(from: url))
             resourceLoaderDelegate = ResourceLoaderProxy()
-            asset.resourceLoader.setDelegate(resourceLoaderDelegate!, queue: DispatchQueue.main)
+            asset.resourceLoader.setDelegate(resourceLoaderDelegate!, queue: resourceLoaderDelegateQueue)
         } else {
             asset = AVURLAsset(url: url)
         }

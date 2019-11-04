@@ -24,29 +24,12 @@ class TestViewController: UIViewController {
         return temp
     }()
     
-    private var downloader: SingleDownloader!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         let videoURL = URL(string: "http://tb-video.bdstatic.com/tieba-smallvideo/14_f7c0c978a45c5078537c317be5154c6a.mp4")!
         
-        downloader = SingleDownloader(url: videoURL, offset: 0, length: 0, isToEnd: true)
-        
-        downloader.didFinishWithErrorHandler = { error in
-            print("didFinishWithError -> \(error)")
-        }
-        
-        downloader.didReceiveResponseHandler = { response in
-            if let info = MediaContentInfo(response: response as! HTTPURLResponse) {
-                print(info)
-            }
-            print("didReceiveResponse -> \(response)")
-        }
-        
-        downloader.didReceiveDataHandler = { data in
-            print("didReceiveData -> \(data.count)")
-        }
         
         
         
@@ -71,7 +54,7 @@ class TestViewController: UIViewController {
     
     
     @objc private func onTouch(startButton: UIButton) {
-        downloader.start()
+        
     }
     
     @objc private func onTouch(stopButton: UIButton) {
