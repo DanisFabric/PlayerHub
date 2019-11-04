@@ -27,13 +27,14 @@ class ResourceLoaderProxy: NSObject, AVAssetResourceLoaderDelegate {
         if loader == nil {
             loader = MediaLoader(sourceURL: sourceUrl)
         }
-        loader?.add(loadingRequest: loadingRequest)
+        loader?.add(request: loadingRequest, to: loadingRequest)
         
         return true
     }
     
     func resourceLoader(_ resourceLoader: AVAssetResourceLoader, didCancel loadingRequest: AVAssetResourceLoadingRequest) {
-        loader?.remove(loadingRequest: loadingRequest)
+        loader?.remove(request: loadingRequest)
+        loader?.remove(output: loadingRequest)
     }
     
     func cancel() {

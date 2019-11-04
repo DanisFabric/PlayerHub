@@ -9,10 +9,23 @@
 import Foundation
 import AVFoundation
 
+protocol MediaLoaderOutputable: NSObject {
+    func write(response: URLResponse)
+    func write(contentInfo: MediaContentInfo)
+    func write(data: Data)
+    func writeCompletion(error: Error?)
+}
+
+protocol MediaLoaderRequestable: NSObject {
+    var requestedOffset: Int64 { get }
+    var requestedLength: Int64 { get }
+}
+
 class MediaLoader {
     private let sourceURL: URL
     
-    private var requests = [AVAssetResourceLoadingRequest]()
+    private(set) var requests = [MediaLoaderRequestable]()
+    private(set) var outputs = [MediaLoaderOutputable]()
     
     private var tasks = [DataDownloader.Task]()
     
@@ -22,30 +35,31 @@ class MediaLoader {
 }
 
 extension MediaLoader {
-    func add(loadingRequest: AVAssetResourceLoadingRequest) {
+    func add(request: MediaLoaderRequestable, to output: MediaLoaderOutputable) {
         let task = DataDownloader.shared.download(from: sourceURL,
-                                       offsetBytes: loadingRequest.dataRequest!.requestedOffset,
-                                       contentBytes: Int64(loadingRequest.dataRequest!.requestedLength),
-                                       didReceiveResponseHandler: { (response) in
-                                        
-                                        loadingRequest.write(response: response)
-                                        
-        }, didReceiveDataHandler: { (data) in
-            loadingRequest.write(data: data)
-        }) { (error) in
-            loadingRequest.writeCompletion(error: error)
+                                                  offsetBytes: request.requestedOffset,
+                                                  contentBytes: request.requestedLength,
+                                                  didReceiveResponseHandler: { (response) in output.write(response: response) },
+                                                  didReceiveDataHandler: { (data) in output.write(data: data) })
+        { (error) in
+            output.writeCompletion(error: error)
         }
-        task.loadingRequest = loadingRequest
+        task.requestHash = request.hash
         task.resume()
-        
         tasks.append(task)
     }
     
-    func remove(loadingRequest: AVAssetResourceLoadingRequest) {
-        if let index = tasks.lastIndex(where: { (task) -> Bool in
-            return task.loadingRequest == loadingRequest
+    func remove(request: MediaLoaderRequestable) {
+        if let index = tasks.firstIndex(where: { (task) -> Bool in
+            return task.requestHash == request.hash
         }) {
             tasks.remove(at: index).cancel()
+        }
+    }
+    
+    func remove(output: MediaLoaderOutputable) {
+        outputs.removeAll { (temp) -> Bool in
+            return temp == output
         }
     }
     
@@ -54,5 +68,7 @@ extension MediaLoader {
             task.cancel()
         }
         tasks.removeAll()
+        requests.removeAll()
+        outputs.removeAll()
     }
 }

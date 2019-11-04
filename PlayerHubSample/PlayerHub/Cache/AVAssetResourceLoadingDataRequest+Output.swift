@@ -11,29 +11,17 @@ import AVFoundation
 
 private var RuntimeKeyReceivedBytesCount = "RuntimeKeyReceivedBytesCount"
 
-extension AVAssetResourceLoadingRequest {
+extension AVAssetResourceLoadingRequest: MediaLoaderRequestable {
+    var requestedOffset: Int64 {
+        return dataRequest?.requestedOffset ?? 0
+    }
     
+    var requestedLength: Int64 {
+        return Int64(dataRequest?.requestedLength ?? 0)
+    }
+}
 
-    var receivedBytesCount: Int64 {
-        get {
-            return (objc_getAssociatedObject(self, &RuntimeKeyReceivedBytesCount) as? Int64) ?? 0
-        }
-        set {
-            objc_setAssociatedObject(self, &RuntimeKeyReceivedBytesCount, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-        }
-    }
-    
-    var totalBytesExpectedToWrite: Int {
-        return dataRequest!.requestedLength
-    }
-    
-    
-    func write(data: Data) {
-        receivedBytesCount += Int64(data.count)
-        
-        dataRequest?.respond(with: data)
-    }
-    
+extension AVAssetResourceLoadingRequest: MediaLoaderOutputable {
     func write(contentInfo: MediaContentInfo) {
         contentInformationRequest?.isByteRangeAccessSupported = contentInfo.isByteRangeAccessSupported
         contentInformationRequest?.contentLength = contentInfo.contentLength
@@ -51,6 +39,13 @@ extension AVAssetResourceLoadingRequest {
         write(contentInfo: contentInfo)
     }
     
+    func write(data: Data) {
+        receivedBytesCount += Int64(data.count)
+        
+        dataRequest?.respond(with: data)
+    }
+    
+    
     func writeCompletion(error: Error?) {
         if isFinished {
             return
@@ -61,6 +56,19 @@ extension AVAssetResourceLoadingRequest {
             finishLoading()
         }
     }
+}
+
+extension AVAssetResourceLoadingRequest {
+    var receivedBytesCount: Int64 {
+        get {
+            return (objc_getAssociatedObject(self, &RuntimeKeyReceivedBytesCount) as? Int64) ?? 0
+        }
+        set {
+            objc_setAssociatedObject(self, &RuntimeKeyReceivedBytesCount, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+    }
     
-    
+    var totalBytesExpectedToWrite: Int {
+        return dataRequest!.requestedLength
+    }
 }

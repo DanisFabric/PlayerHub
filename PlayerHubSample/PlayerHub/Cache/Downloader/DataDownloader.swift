@@ -17,7 +17,7 @@ class DataDownloader: NSObject {
         
         let dataTask: URLSessionDataTask
 
-        var loadingRequest: AVAssetResourceLoadingRequest?
+        var requestHash = 0
         
         init(sourceURL: URL, offsetBytes: Int64, contentBytes: Int64?, session: URLSession) {
             var request = URLRequest(url: sourceURL)
