@@ -299,12 +299,12 @@
 		B7DF1111236813D1006A0BC6 /* Cache */ = {
 			isa = PBXGroup;
 			children = (
-				B730BC06236C094D007F9528 /* Downloader */,
-				B730BBFB236ABECA007F9528 /* Model */,
-				B730BBFA236ABEBD007F9528 /* Utils */,
 				B7DF11122368165F006A0BC6 /* ResourceLoaderProxy.swift */,
 				B730BC04236BDB6C007F9528 /* AVAssetResourceLoadingDataRequest+Output.swift */,
 				B730BBFE236ADF83007F9528 /* MediaLoader.swift */,
+				B730BC06236C094D007F9528 /* Downloader */,
+				B730BBFB236ABECA007F9528 /* Model */,
+				B730BBFA236ABEBD007F9528 /* Utils */,
 			);
 			path = Cache;
 			sourceTree = "<group>";

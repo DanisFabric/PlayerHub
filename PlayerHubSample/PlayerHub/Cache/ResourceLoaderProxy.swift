@@ -29,12 +29,16 @@ class ResourceLoaderProxy: NSObject, AVAssetResourceLoaderDelegate {
         }
         loader?.add(request: loadingRequest, to: loadingRequest)
         
+        print("loader add -> \(loadingRequest.requestedOffset)-\(loadingRequest.requestedLength + loadingRequest.requestedOffset)")
+        
         return true
     }
     
     func resourceLoader(_ resourceLoader: AVAssetResourceLoader, didCancel loadingRequest: AVAssetResourceLoadingRequest) {
         loader?.remove(request: loadingRequest)
         loader?.remove(output: loadingRequest)
+        
+        print("loader remove -> \(loadingRequest.requestedOffset)-\(loadingRequest.requestedLength + loadingRequest.requestedOffset)")
     }
     
     func cancel() {

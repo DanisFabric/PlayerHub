@@ -35,6 +35,7 @@ extension AVAssetResourceLoadingRequest: MediaLoaderOutputable {
         guard let contentInfo = MediaContentInfo(response: httpResponse) else {
             return
         }
+//        print("loader contentInfo -> \(contentInfo)")
         
         write(contentInfo: contentInfo)
     }
@@ -50,7 +51,8 @@ extension AVAssetResourceLoadingRequest: MediaLoaderOutputable {
         if isFinished {
             return
         }
-        if let error = error {
+        print("loader completion->\(error)")
+        if let error = error, (error as NSError).code != NSURLErrorCancelled {
             finishLoading(with: error)
         } else {
             finishLoading()
