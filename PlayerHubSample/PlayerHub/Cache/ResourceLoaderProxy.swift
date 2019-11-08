@@ -27,7 +27,7 @@ class ResourceLoaderProxy: NSObject, AVAssetResourceLoaderDelegate {
         if loader == nil {
             loader = MediaLoader(sourceURL: sourceUrl)
         }
-        loader?.add(request: loadingRequest, to: loadingRequest)
+        loader?.add(request: loadingRequest)
         
         print("loader add -> \(loadingRequest.requestedOffset)-\(loadingRequest.requestedLength + loadingRequest.requestedOffset)")
         
@@ -36,7 +36,6 @@ class ResourceLoaderProxy: NSObject, AVAssetResourceLoaderDelegate {
     
     func resourceLoader(_ resourceLoader: AVAssetResourceLoader, didCancel loadingRequest: AVAssetResourceLoadingRequest) {
         loader?.remove(request: loadingRequest)
-        loader?.remove(output: loadingRequest)
         
         print("loader remove -> \(loadingRequest.requestedOffset)-\(loadingRequest.requestedLength + loadingRequest.requestedOffset)")
     }

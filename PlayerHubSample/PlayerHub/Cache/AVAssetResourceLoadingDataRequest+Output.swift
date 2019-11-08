@@ -19,9 +19,11 @@ extension AVAssetResourceLoadingRequest: MediaLoaderRequestable {
     var requestedLength: Int64 {
         return Int64(dataRequest?.requestedLength ?? 0)
     }
-}
-
-extension AVAssetResourceLoadingRequest: MediaLoaderOutputable {
+    
+    var currentOffset: Int64 {
+        return dataRequest?.currentOffset ?? 0
+    }
+    
     func write(contentInfo: MediaContentInfo) {
         contentInformationRequest?.isByteRangeAccessSupported = contentInfo.isByteRangeAccessSupported
         contentInformationRequest?.contentLength = contentInfo.contentLength
@@ -35,14 +37,12 @@ extension AVAssetResourceLoadingRequest: MediaLoaderOutputable {
         guard let contentInfo = MediaContentInfo(response: httpResponse) else {
             return
         }
-//        print("loader contentInfo -> \(contentInfo)")
         
         write(contentInfo: contentInfo)
     }
     
     func write(data: Data) {
-        receivedBytesCount += Int64(data.count)
-        
+        print(Thread.current)
         dataRequest?.respond(with: data)
     }
     
@@ -51,7 +51,6 @@ extension AVAssetResourceLoadingRequest: MediaLoaderOutputable {
         if isFinished {
             return
         }
-        print("loader completion->\(error)")
         if let error = error, (error as NSError).code != NSURLErrorCancelled {
             finishLoading(with: error)
         } else {
@@ -60,17 +59,3 @@ extension AVAssetResourceLoadingRequest: MediaLoaderOutputable {
     }
 }
 
-extension AVAssetResourceLoadingRequest {
-    var receivedBytesCount: Int64 {
-        get {
-            return (objc_getAssociatedObject(self, &RuntimeKeyReceivedBytesCount) as? Int64) ?? 0
-        }
-        set {
-            objc_setAssociatedObject(self, &RuntimeKeyReceivedBytesCount, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-        }
-    }
-    
-    var totalBytesExpectedToWrite: Int {
-        return dataRequest!.requestedLength
-    }
-}

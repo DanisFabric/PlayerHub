@@ -31,10 +31,17 @@ class DataDownloader: NSObject {
             dataTask = session.dataTask(with: request)
         }
         
+        // 暂停
+        func suspend() {
+            dataTask.suspend()
+        }
+        
+        // 开始
         func resume() {
             dataTask.resume()
         }
         
+        // 取消
         func cancel() {
             dataTask.cancel()
         }

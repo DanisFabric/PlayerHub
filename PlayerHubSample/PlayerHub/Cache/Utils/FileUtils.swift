@@ -17,6 +17,10 @@ extension URL {
         }
         return nil
     }
+    
+    var isExists: Bool {
+        return FileManager.default.fileExists(atPath: path)
+    }
 }
 
 
@@ -41,6 +45,8 @@ class FileUtils {
             try? FileManager.default.createDirectory(at: directoryURL, withIntermediateDirectories: true, attributes: nil)
         }
     }
+    
+
 }
 
 /// MARK: - 构建缓存w目录
@@ -56,6 +62,7 @@ extension FileUtils {
     static func contentInfoURL(of sourceURL: URL) -> URL {
         return cacheDirectory().appendingPathComponent(sourceURL.absoluteString + ".header")
     }
+    
     
 }
 
