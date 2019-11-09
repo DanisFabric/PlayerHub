@@ -12,6 +12,15 @@ import AVFoundation
 private var RuntimeKeyReceivedBytesCount = "RuntimeKeyReceivedBytesCount"
 
 extension AVAssetResourceLoadingRequest: MediaLoaderRequestable {
+    private var receivedBytesCount: Int64 {
+        get {
+            return (objc_getAssociatedObject(self, &RuntimeKeyReceivedBytesCount) as? Int64) ?? 0
+        }
+        set {
+            objc_setAssociatedObject(self, &RuntimeKeyReceivedBytesCount, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+    }
+    
     var requestedOffset: Int64 {
         return dataRequest?.requestedOffset ?? 0
     }
@@ -21,7 +30,7 @@ extension AVAssetResourceLoadingRequest: MediaLoaderRequestable {
     }
     
     var currentOffset: Int64 {
-        return dataRequest?.currentOffset ?? 0
+        return requestedOffset + receivedBytesCount
     }
     
     func write(contentInfo: MediaContentInfo) {
@@ -42,8 +51,10 @@ extension AVAssetResourceLoadingRequest: MediaLoaderRequestable {
     }
     
     func write(data: Data) {
-        print(Thread.current)
         dataRequest?.respond(with: data)
+        receivedBytesCount += Int64(data.count)
+        
+        print("write data \(receivedBytesCount)/\(requestedLength)")
     }
     
     

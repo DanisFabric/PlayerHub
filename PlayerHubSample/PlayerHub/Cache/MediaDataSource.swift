@@ -19,6 +19,8 @@ class MediaDataSource {
     
     private var isFileCompleted = false
     
+    var outputs = [MediaLoaderRequestable]()
+    
     init(sourceURL: URL) {
         self.sourceURL = sourceURL
         self.writter = MediaFileWritter(sourceURL: sourceURL)
@@ -29,6 +31,7 @@ class MediaDataSource {
                 self.isFileCompleted = true
             } else {
                 // 本地文件未下载完成，断点续传
+                writter.openStream()
                 dataTask = DataDownloader.shared.download(from: sourceURL, offsetBytes: writter.originalFileSize, contentBytes: contentInfo.contentLength - writter.originalFileSize, didReceiveResponseHandler: { (response) in
                     self.onReceived(response: response)
                 }, didReceiveDataHandler: { (data) in
@@ -41,6 +44,7 @@ class MediaDataSource {
             // 没有下载过
             assert(writter.originalFileSize == 0, "无contentInfo的情况下，不可能下载了文件数据")
             
+            writter.openStream()
             dataTask = DataDownloader.shared.download(from: sourceURL, offsetBytes: 0, contentBytes: nil, didReceiveResponseHandler: { (response) in
                 self.onReceived(response: response)
             }, didReceiveDataHandler: { (data) in
@@ -51,36 +55,95 @@ class MediaDataSource {
         }
     }
     
-    
-    func resume() {
+    func resumeDataTask() {
         dataTask?.resume()
     }
     
-    func suspend() {
+    func suspendDataTask() {
         dataTask?.suspend()
     }
     
-    func cancel() {
+    func cancelDataTask() {
         dataTask?.cancel()
+    }
+    
+    
+}
+
+extension MediaDataSource {
+    func add(output: MediaLoaderRequestable) {
+        if let contentInfo = writter.contentInfo {
+            output.write(contentInfo: contentInfo)
+        }
+        // 从writter读取数据
+        let range = Range(uncheckedBounds: (output.currentOffset, output.requestedLength))
+        if let data = writter.readData(in: range) {
+            output.write(data: data)
+            if output.currentOffset == output.requestedOffset + output.requestedLength {
+                output.writeCompletion(error: nil)
+            }
+        } else {
+            outputs.append(output)
+        }
+    }
+    
+    func remove(output: MediaLoaderRequestable) {
+        outputs.removeAll { (temp) -> Bool in
+            return temp == output
+        }
+    }
+    
+    func cancel() {
+        cancelDataTask()
+        writter.closeStream()
+        outputs.removeAll()
     }
 }
 
 extension MediaDataSource {
     private func onReceived(response: URLResponse) {
-        if writter.contentInfo == nil {
-            writter.write(response: response)
+        queue.async {
+            if self.writter.contentInfo == nil {
+                self.writter.write(response: response)
+            }
+            self.outputs.forEach { (output) in
+                output.write(response: response)
+            }
         }
     }
     
     private func onReceived(data: Data) {
-        writter.write(data: data)
+        queue.async {
+            self.writter.write(data: data)
+            
+            self.outputs.filter({ (output) -> Bool in
+                return !output.isFinished
+            }).forEach { (output) in
+                let range = Range(uncheckedBounds: (output.currentOffset, output.requestedLength))
+                if let data = self.writter.readData(in: range) {
+                    output.write(data: data)
+                    if output.currentOffset == output.requestedOffset + output.requestedLength {
+                        output.writeCompletion(error: nil)
+                    }
+                }
+            }
+        }
     }
     
     private func onCompleted(error: Error?) {
-        writter.closeStream()
-        
-        if error == nil {
-            self.isFileCompleted = true
+        queue.async {
+            self.writter.closeStream()
+            
+            if error == nil {
+                self.isFileCompleted = true
+            }
+            
+            self.outputs.filter { (output) -> Bool in
+                return !output.isFinished
+            }.forEach { (output) in
+                output.writeCompletion(error: error)
+            }
+            self.outputs.removeAll()
         }
     }
 }

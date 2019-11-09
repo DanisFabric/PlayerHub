@@ -56,11 +56,11 @@ extension FileUtils {
     }
     
     static func videoURL(of sourceURL: URL) -> URL {
-        return cacheDirectory().appendingPathComponent(sourceURL.absoluteString + ".cache")
+        return cacheDirectory().appendingPathComponent(sourceURL.absoluteString.md5 + ".cache")
     }
     
     static func contentInfoURL(of sourceURL: URL) -> URL {
-        return cacheDirectory().appendingPathComponent(sourceURL.absoluteString + ".header")
+        return cacheDirectory().appendingPathComponent(sourceURL.absoluteString.md5 + ".header")
     }
     
     

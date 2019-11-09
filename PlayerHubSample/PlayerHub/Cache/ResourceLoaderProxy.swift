@@ -42,5 +42,6 @@ class ResourceLoaderProxy: NSObject, AVAssetResourceLoaderDelegate {
     
     func cancel() {
         loader?.cancel()
+        loader = nil
     }
 }

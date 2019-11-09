@@ -42,6 +42,7 @@
 		B7890C5F2361797A00C0B4B9 /* FeedDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7890C5E2361797A00C0B4B9 /* FeedDetailViewController.swift */; };
 		B7890C622361931000C0B4B9 /* UIColor+hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7890C612361931000C0B4B9 /* UIColor+hex.swift */; };
 		B7AA179D2375523100A75A91 /* MediaDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7AA179C2375523100A75A91 /* MediaDataSource.swift */; };
+		B7AA179F23769C8100A75A91 /* String+MD5.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7AA179E23769C8100A75A91 /* String+MD5.swift */; };
 		B7DF11132368165F006A0BC6 /* ResourceLoaderProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7DF11122368165F006A0BC6 /* ResourceLoaderProxy.swift */; };
 		B7DF111523681E85006A0BC6 /* CacheURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7DF111423681E85006A0BC6 /* CacheURL.swift */; };
 		B7E8B701235461380076A837 /* PlayerHub.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7E8B700235461380076A837 /* PlayerHub.swift */; };
@@ -87,6 +88,7 @@
 		B7890C5E2361797A00C0B4B9 /* FeedDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedDetailViewController.swift; sourceTree = "<group>"; };
 		B7890C612361931000C0B4B9 /* UIColor+hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+hex.swift"; sourceTree = "<group>"; };
 		B7AA179C2375523100A75A91 /* MediaDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaDataSource.swift; sourceTree = "<group>"; };
+		B7AA179E23769C8100A75A91 /* String+MD5.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+MD5.swift"; sourceTree = "<group>"; };
 		B7DF11122368165F006A0BC6 /* ResourceLoaderProxy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceLoaderProxy.swift; sourceTree = "<group>"; };
 		B7DF111423681E85006A0BC6 /* CacheURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheURL.swift; sourceTree = "<group>"; };
 		B7E8B700235461380076A837 /* PlayerHub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerHub.swift; sourceTree = "<group>"; };
@@ -228,6 +230,7 @@
 			children = (
 				B7DF111423681E85006A0BC6 /* CacheURL.swift */,
 				B766B3CD236C2AF300EAA4D2 /* FileUtils.swift */,
+				B7AA179E23769C8100A75A91 /* String+MD5.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -485,6 +488,7 @@
 				B7890C5F2361797A00C0B4B9 /* FeedDetailViewController.swift in Sources */,
 				B716A9A9235E9C77005303A8 /* DataCreator.swift in Sources */,
 				B7890C5D2361794800C0B4B9 /* FeedCell.swift in Sources */,
+				B7AA179F23769C8100A75A91 /* String+MD5.swift in Sources */,
 				B71C882E2362A3A000DF2D3E /* DouyinPlayerControlView.swift in Sources */,
 				B7AA179D2375523100A75A91 /* MediaDataSource.swift in Sources */,
 				B7890C622361931000C0B4B9 /* UIColor+hex.swift in Sources */,
