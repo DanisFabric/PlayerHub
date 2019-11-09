@@ -79,9 +79,15 @@ extension MediaDataSource {
         let range = Range(uncheckedBounds: (output.currentOffset, output.requestedLength))
         if let data = writter.readData(in: range) {
             output.write(data: data)
-            if output.currentOffset == output.requestedOffset + output.requestedLength {
+            if data.count == range.count {
                 output.writeCompletion(error: nil)
+            } else {
+                outputs.append(output)
             }
+//            if output.currentOffset == output.requestedOffset + output.requestedLength {
+//            } else {
+//                outputs.append(output)
+//            }
         } else {
             outputs.append(output)
         }
@@ -106,7 +112,9 @@ extension MediaDataSource {
             if self.writter.contentInfo == nil {
                 self.writter.write(response: response)
             }
-            self.outputs.forEach { (output) in
+            self.outputs.filter({ (output) -> Bool in
+                return !output.isFinished
+            }).forEach { (output) in
                 output.write(response: response)
             }
         }

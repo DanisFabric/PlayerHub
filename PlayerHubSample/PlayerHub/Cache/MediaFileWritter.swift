@@ -57,6 +57,8 @@ class MediaFileWritter {
         let bytes = [UInt8](data)
         self.outputStream?.write(bytes, maxLength: bytes.count)
         currentFileSize += Int64(bytes.count)
+        
+        print("写文件 -> \(currentFileSize)-\(FileUtils.fileSize(of: videoURL))")
     }
     
     func openStream() {
@@ -83,7 +85,10 @@ class MediaFileWritter {
         do {
             try handle.seek(toOffset: UInt64(range.lowerBound))
             if currentFileSize >= range.upperBound {
-                return handle.readData(ofLength: Int(range.count))
+                let data = handle.readData(ofLength: Int(range.count))
+                print("读文件 -> \(range.lowerBound)-\(range.upperBound)")
+                
+                return data
             } else {
                 return handle.readDataToEndOfFile()
             }
