@@ -9,7 +9,7 @@
 import Foundation
 
 
-class MediaDataSource {
+class MediaFileDataSource {
     private var writter: MediaFileWritter
     private var dataTask: DataDownloader.Task?
     
@@ -70,7 +70,7 @@ class MediaDataSource {
     
 }
 
-extension MediaDataSource {
+extension MediaFileDataSource {
     func isReachable(output: MediaLoaderRequestable) -> Bool {
         return output.requestedOffset <= writter.currentFileSize
     }
@@ -111,7 +111,7 @@ extension MediaDataSource {
     }
 }
 
-extension MediaDataSource {
+extension MediaFileDataSource {
     private func onReceived(response: URLResponse) {
         networkLock.lock()
         defer {

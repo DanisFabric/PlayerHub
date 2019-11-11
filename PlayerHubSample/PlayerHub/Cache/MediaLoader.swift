@@ -25,17 +25,16 @@ class MediaLoader {
     
     private(set) var requests = [MediaLoaderRequestable]()
     
-    
     private var tasks = [DataDownloader.Task]()
     
     private let queue = DispatchQueue(label: "com.danis.medialoader.queue")
 
     private let sourceURL: URL
-    private let dataSource: MediaDataSource
+    private let dataSource: MediaFileDataSource
     
     init(sourceURL: URL) {
         self.sourceURL = sourceURL
-        self.dataSource = MediaDataSource(sourceURL: sourceURL)
+        self.dataSource = MediaFileDataSource(sourceURL: sourceURL)
     }
 }
 
