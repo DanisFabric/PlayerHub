@@ -98,6 +98,12 @@ extension MediaDataSource {
         }
     }
     
+    func contains(output: MediaLoaderRequestable) -> Bool {
+        return outputs.contains { (temp) -> Bool in
+            return output == temp
+        }
+    }
+    
     func cancel() {
         cancelDataTask()
         writter.closeStream()

@@ -25,6 +25,7 @@ class MediaLoader {
     
     private(set) var requests = [MediaLoaderRequestable]()
     
+    
     private var tasks = [DataDownloader.Task]()
     
     private let queue = DispatchQueue(label: "com.danis.medialoader.queue")
@@ -45,49 +46,54 @@ extension MediaLoader {
                 self.dataSource.resumeDataTask()
                 self.dataSource.add(output: request)
             } else {
-                print("不在当前范围中 \(request.requestedOffset)")
+                print("不在文件中- \(request.requestedOffset)")
                 self.dataSource.resumeDataTask()
                 self.dataSource.add(output: request)
+                
+//                self.dataSource.suspendDataTask()
+//
+//                let task = DataDownloader.shared.download(from: self.sourceURL, offsetBytes: request.requestedOffset, contentBytes: request.requestedLength, didReceiveResponseHandler: { (response) in
+//                    request.write(response: response)
+//                }, didReceiveDataHandler: {(data) in
+//                    request.write(data: data)
+//                }, didCompleteHandler: { error in
+//                    request.writeCompletion(error: error)
+//
+//                    self.remove(request: request)
+//                })
+//                task.requestHash = request.hash
+//                task.resume()
+//                self.tasks.append(task)
             }
         }
         
         
-//        let task = DataDownloader.shared.download(from: sourceURL, offsetBytes: request.requestedOffset, contentBytes: request.requestedLength, didReceiveResponseHandler: { (response) in
-//            request.write(response: response)
-//        }, didReceiveDataHandler: {(data) in
-//            request.write(data: data)
-//        }, didCompleteHandler: { error in
-//            request.writeCompletion(error: error)
-//            
-//            self.remove(request: request)
-//        })
-//        task.requestHash = request.hash
-//        task.resume()
-//        tasks.append(task)
-//        
-//        print("tasks->\(tasks.count)")
     }
     
     func remove(request: MediaLoaderRequestable) {
         queue.async {
             self.dataSource.remove(output: request)
+            
+//            if self.dataSource.contains(output: request) {
+//                self.dataSource.remove(output: request)
+//            } else {
+//                if let index = self.tasks.firstIndex(where: { (task) -> Bool in
+//                    return task.requestHash == request.hash
+//                }) {
+//                    self.tasks.remove(at: index).cancel()
+//                }
+//            }
+            
         }
         
-//        if let index = tasks.firstIndex(where: { (task) -> Bool in
-//            return task.requestHash == request.hash
-//        }) {
-//            tasks.remove(at: index).cancel()
-//        }
-//        print("tasks->\(tasks.count)")
     }
     
     func cancel() {
-//        tasks.forEach { (task) in
-//            task.cancel()
-//        }
-//        tasks.removeAll()
-//        requests.removeAll()
         queue.async {
+//            self.tasks.forEach { (task) in
+//                task.cancel()
+//            }
+            self.tasks.removeAll()
             self.dataSource.cancel()
         }
     }
