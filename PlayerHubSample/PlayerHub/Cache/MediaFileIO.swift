@@ -14,7 +14,7 @@ import Foundation
  * 防止多个线程同时写数据
  */
 
-class MediaFileWritter {
+class MediaFileIO {
     var didAppendDataHandler: ((Int64, Data) -> Void)?
     
     let videoURL: URL

@@ -30,26 +30,26 @@ class MediaLoader {
     private let queue = DispatchQueue(label: "com.danis.medialoader.queue")
 
     private let sourceURL: URL
-    private let dataSource: MediaFileDataSource
+    private let dataLoader: MediaDataLoader
     
     init(sourceURL: URL) {
         self.sourceURL = sourceURL
-        self.dataSource = MediaFileDataSource(sourceURL: sourceURL)
+        self.dataLoader = MediaDataLoader(sourceURL: sourceURL)
     }
 }
 
 extension MediaLoader {
     func add(request: MediaLoaderRequestable) {
         queue.async {
-            if self.dataSource.isReachable(output: request) {
-                self.dataSource.resumeDataTask()
-                self.dataSource.add(output: request)
+            if self.dataLoader.isReachable(output: request) {
+                self.dataLoader.resumeDataTask()
+                self.dataLoader.add(output: request)
             } else {
                 print("不在文件中- \(request.requestedOffset)")
-                self.dataSource.resumeDataTask()
-                self.dataSource.add(output: request)
+                self.dataLoader.resumeDataTask()
+                self.dataLoader.add(output: request)
                 
-//                self.dataSource.suspendDataTask()
+//                self.dataLoader.suspendDataTask()
 //
 //                let task = DataDownloader.shared.download(from: self.sourceURL, offsetBytes: request.requestedOffset, contentBytes: request.requestedLength, didReceiveResponseHandler: { (response) in
 //                    request.write(response: response)
@@ -71,10 +71,10 @@ extension MediaLoader {
     
     func remove(request: MediaLoaderRequestable) {
         queue.async {
-            self.dataSource.remove(output: request)
+            self.dataLoader.remove(output: request)
             
-//            if self.dataSource.contains(output: request) {
-//                self.dataSource.remove(output: request)
+//            if self.dataLoader.contains(output: request) {
+//                self.dataLoader.remove(output: request)
 //            } else {
 //                if let index = self.tasks.firstIndex(where: { (task) -> Bool in
 //                    return task.requestHash == request.hash
@@ -93,7 +93,7 @@ extension MediaLoader {
 //                task.cancel()
 //            }
             self.tasks.removeAll()
-            self.dataSource.cancel()
+            self.dataLoader.cancel()
         }
     }
 }
