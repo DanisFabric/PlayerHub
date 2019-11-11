@@ -71,6 +71,9 @@ class MediaDataSource {
 }
 
 extension MediaDataSource {
+    func isReachable(output: MediaLoaderRequestable) -> Bool {
+        return output.requestedOffset <= writter.currentFileSize
+    }
     func add(output: MediaLoaderRequestable) {
         if let contentInfo = writter.contentInfo {
             output.write(contentInfo: contentInfo)
@@ -84,10 +87,6 @@ extension MediaDataSource {
             } else {
                 outputs.append(output)
             }
-//            if output.currentOffset == output.requestedOffset + output.requestedLength {
-//            } else {
-//                outputs.append(output)
-//            }
         } else {
             outputs.append(output)
         }
@@ -108,50 +107,44 @@ extension MediaDataSource {
 
 extension MediaDataSource {
     private func onReceived(response: URLResponse) {
-        queue.async {
-            if self.writter.contentInfo == nil {
-                self.writter.write(response: response)
-            }
-            self.outputs.filter({ (output) -> Bool in
-                return !output.isFinished
-            }).forEach { (output) in
-                output.write(response: response)
-            }
+        if self.writter.contentInfo == nil {
+            self.writter.write(response: response)
+        }
+        self.outputs.filter({ (output) -> Bool in
+            return !output.isFinished
+        }).forEach { (output) in
+            output.write(response: response)
         }
     }
     
     private func onReceived(data: Data) {
-        queue.async {
-            self.writter.write(data: data)
-            
-            self.outputs.filter({ (output) -> Bool in
-                return !output.isFinished
-            }).forEach { (output) in
-                let range = Range(uncheckedBounds: (output.currentOffset, output.requestedLength))
-                if let data = self.writter.readData(in: range) {
-                    output.write(data: data)
-                    if output.currentOffset == output.requestedOffset + output.requestedLength {
-                        output.writeCompletion(error: nil)
-                    }
+        self.writter.write(data: data)
+        
+        self.outputs.filter({ (output) -> Bool in
+            return !output.isFinished
+        }).forEach { (output) in
+            let range = Range(uncheckedBounds: (output.currentOffset, output.requestedLength))
+            if let data = self.writter.readData(in: range) {
+                output.write(data: data)
+                if output.currentOffset == output.requestedOffset + output.requestedLength {
+                    output.writeCompletion(error: nil)
                 }
             }
         }
     }
     
     private func onCompleted(error: Error?) {
-        queue.async {
-            self.writter.closeStream()
-            
-            if error == nil {
-                self.isFileCompleted = true
-            }
-            
-            self.outputs.filter { (output) -> Bool in
-                return !output.isFinished
-            }.forEach { (output) in
-                output.writeCompletion(error: error)
-            }
-            self.outputs.removeAll()
+        self.writter.closeStream()
+        
+        if error == nil {
+            self.isFileCompleted = true
         }
+        
+        self.outputs.filter { (output) -> Bool in
+            return !output.isFinished
+        }.forEach { (output) in
+            output.writeCompletion(error: error)
+        }
+        self.outputs.removeAll()
     }
 }

@@ -54,7 +54,7 @@ extension AVAssetResourceLoadingRequest: MediaLoaderRequestable {
         dataRequest?.respond(with: data)
         receivedBytesCount += Int64(data.count)
         
-        print("write data \(receivedBytesCount)/\(requestedLength)")
+//        print("write data \(receivedBytesCount)/\(requestedLength)")
     }
     
     

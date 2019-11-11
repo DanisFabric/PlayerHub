@@ -40,8 +40,14 @@ class MediaLoader {
 
 extension MediaLoader {
     func add(request: MediaLoaderRequestable) {
-        self.dataSource.resumeDataTask()
-        self.dataSource.add(output: request)
+        if self.dataSource.isReachable(output: request) {
+            self.dataSource.resumeDataTask()
+            self.dataSource.add(output: request)
+        } else {
+            print("不在当前范围中 \(request.requestedOffset)")
+            self.dataSource.resumeDataTask()
+            self.dataSource.add(output: request)
+        }
         
         
 //        let task = DataDownloader.shared.download(from: sourceURL, offsetBytes: request.requestedOffset, contentBytes: request.requestedLength, didReceiveResponseHandler: { (response) in
