@@ -10,8 +10,6 @@ import Foundation
 
 
 class MediaDataSource {
-    let queue = DispatchQueue(label: "test")
-    
     private var writter: MediaFileWritter
     private var dataTask: DataDownloader.Task?
     
@@ -20,6 +18,8 @@ class MediaDataSource {
     private var isFileCompleted = false
     
     var outputs = [MediaLoaderRequestable]()
+    
+    private let networkLock = NSLock()
     
     init(sourceURL: URL) {
         self.sourceURL = sourceURL
@@ -107,6 +107,11 @@ extension MediaDataSource {
 
 extension MediaDataSource {
     private func onReceived(response: URLResponse) {
+        networkLock.lock()
+        defer {
+            networkLock.unlock()
+        }
+        
         if self.writter.contentInfo == nil {
             self.writter.write(response: response)
         }
@@ -118,6 +123,10 @@ extension MediaDataSource {
     }
     
     private func onReceived(data: Data) {
+        networkLock.lock()
+        defer {
+            networkLock.unlock()
+        }
         self.writter.write(data: data)
         
         self.outputs.filter({ (output) -> Bool in
@@ -134,6 +143,10 @@ extension MediaDataSource {
     }
     
     private func onCompleted(error: Error?) {
+        networkLock.lock()
+        defer {
+            networkLock.unlock()
+        }
         self.writter.closeStream()
         
         if error == nil {

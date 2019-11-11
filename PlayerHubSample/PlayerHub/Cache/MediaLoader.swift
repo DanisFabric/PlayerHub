@@ -27,7 +27,7 @@ class MediaLoader {
     
     private var tasks = [DataDownloader.Task]()
     
-    private let queue = DispatchQueue(label: "com.danis.MediaLoader.FileQueue")
+    private let queue = DispatchQueue(label: "com.danis.medialoader.queue")
 
     private let sourceURL: URL
     private let dataSource: MediaDataSource
@@ -40,13 +40,15 @@ class MediaLoader {
 
 extension MediaLoader {
     func add(request: MediaLoaderRequestable) {
-        if self.dataSource.isReachable(output: request) {
-            self.dataSource.resumeDataTask()
-            self.dataSource.add(output: request)
-        } else {
-            print("不在当前范围中 \(request.requestedOffset)")
-            self.dataSource.resumeDataTask()
-            self.dataSource.add(output: request)
+        queue.async {
+            if self.dataSource.isReachable(output: request) {
+                self.dataSource.resumeDataTask()
+                self.dataSource.add(output: request)
+            } else {
+                print("不在当前范围中 \(request.requestedOffset)")
+                self.dataSource.resumeDataTask()
+                self.dataSource.add(output: request)
+            }
         }
         
         
@@ -67,7 +69,10 @@ extension MediaLoader {
     }
     
     func remove(request: MediaLoaderRequestable) {
-        dataSource.remove(output: request)
+        queue.async {
+            self.dataSource.remove(output: request)
+        }
+        
 //        if let index = tasks.firstIndex(where: { (task) -> Bool in
 //            return task.requestHash == request.hash
 //        }) {
@@ -82,6 +87,8 @@ extension MediaLoader {
 //        }
 //        tasks.removeAll()
 //        requests.removeAll()
-        dataSource.cancel()
+        queue.async {
+            self.dataSource.cancel()
+        }
     }
 }
