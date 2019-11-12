@@ -45,8 +45,9 @@
 		B7DF11132368165F006A0BC6 /* ResourceLoaderProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7DF11122368165F006A0BC6 /* ResourceLoaderProxy.swift */; };
 		B7DF111523681E85006A0BC6 /* CacheURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7DF111423681E85006A0BC6 /* CacheURL.swift */; };
 		B7E2F87F237953B400B60658 /* MediasPreloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7E2F87E237953B400B60658 /* MediasPreloader.swift */; };
-		B7E2F883237956AB00B60658 /* MediaDataPreloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7E2F882237956AB00B60658 /* MediaDataPreloader.swift */; };
+		B7E2F883237956AB00B60658 /* MediasPreloaderDataLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7E2F882237956AB00B60658 /* MediasPreloaderDataLoader.swift */; };
 		B7E8B701235461380076A837 /* PlayerHub.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7E8B700235461380076A837 /* PlayerHub.swift */; };
+		B7F938CC237A56F000B66A26 /* Array+Unique.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F938CB237A56F000B66A26 /* Array+Unique.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -92,8 +93,9 @@
 		B7DF11122368165F006A0BC6 /* ResourceLoaderProxy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceLoaderProxy.swift; sourceTree = "<group>"; };
 		B7DF111423681E85006A0BC6 /* CacheURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheURL.swift; sourceTree = "<group>"; };
 		B7E2F87E237953B400B60658 /* MediasPreloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediasPreloader.swift; sourceTree = "<group>"; };
-		B7E2F882237956AB00B60658 /* MediaDataPreloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaDataPreloader.swift; sourceTree = "<group>"; };
+		B7E2F882237956AB00B60658 /* MediasPreloaderDataLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediasPreloaderDataLoader.swift; sourceTree = "<group>"; };
 		B7E8B700235461380076A837 /* PlayerHub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerHub.swift; sourceTree = "<group>"; };
+		B7F938CB237A56F000B66A26 /* Array+Unique.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Unique.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -233,6 +235,7 @@
 				B7DF111423681E85006A0BC6 /* CacheURL.swift */,
 				B766B3CD236C2AF300EAA4D2 /* FileUtils.swift */,
 				B7AA179E23769C8100A75A91 /* String+MD5.swift */,
+				B7F938CB237A56F000B66A26 /* Array+Unique.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -327,7 +330,7 @@
 			isa = PBXGroup;
 			children = (
 				B7E2F87E237953B400B60658 /* MediasPreloader.swift */,
-				B7E2F882237956AB00B60658 /* MediaDataPreloader.swift */,
+				B7E2F882237956AB00B60658 /* MediasPreloaderDataLoader.swift */,
 			);
 			path = Preloader;
 			sourceTree = "<group>";
@@ -493,7 +496,7 @@
 				B721358623604E1F0069BB38 /* NormalPlayerController.swift in Sources */,
 				B71C882B2362952F00DF2D3E /* FeedTestHeaderView.swift in Sources */,
 				B727A13E235029BC0026B2C1 /* BufferedSlider.swift in Sources */,
-				B7E2F883237956AB00B60658 /* MediaDataPreloader.swift in Sources */,
+				B7E2F883237956AB00B60658 /* MediasPreloaderDataLoader.swift in Sources */,
 				B7890C5A2361792C00C0B4B9 /* FeedListTableViewController.swift in Sources */,
 				B71C8829236289E500DF2D3E /* FeedDetailHeaderView.swift in Sources */,
 				B7E2F87F237953B400B60658 /* MediasPreloader.swift in Sources */,
@@ -504,6 +507,7 @@
 				B7AA179F23769C8100A75A91 /* String+MD5.swift in Sources */,
 				B71C882E2362A3A000DF2D3E /* DouyinPlayerControlView.swift in Sources */,
 				B7AA179D2375523100A75A91 /* MediaDataLoader.swift in Sources */,
+				B7F938CC237A56F000B66A26 /* Array+Unique.swift in Sources */,
 				B7890C622361931000C0B4B9 /* UIColor+hex.swift in Sources */,
 				B7DF11132368165F006A0BC6 /* ResourceLoaderProxy.swift in Sources */,
 				B77DCF2123750B4200852164 /* MediaFileIO.swift in Sources */,
