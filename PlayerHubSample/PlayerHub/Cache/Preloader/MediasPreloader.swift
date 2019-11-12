@@ -19,6 +19,7 @@ class MediasPreloader {
     }
     
     private(set) var pendingURLs = [URL]()
+    private(set) var canceledURLs = Set<URL>()     // 某个URL被取消了之后，都不会再进行预加载了，是为了防止外部播放中，同一URL被添加入预加载队列
     
     private init() {}
 }
@@ -44,11 +45,17 @@ extension MediasPreloader {
     
     
     func add(urls: [URL]) {
-        pendingURLs.append(contentsOf: urls)
+        let newURLs = urls.filter { (url) -> Bool in
+            return !canceledURLs.contains(url)
+        }
+        
+        pendingURLs.append(contentsOf: newURLs)
         pendingURLs = pendingURLs.unique        //  删除重复元素
     }
     
     func cancel(url: URL) {
+        canceledURLs.insert(url)
+        
         if loadingURL == url {
             // 当前正在下载，取消当前的下载，直接开始下一个
             dataLoader?.cancel()

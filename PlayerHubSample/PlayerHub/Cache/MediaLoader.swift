@@ -35,6 +35,7 @@ class MediaLoader {
     init(sourceURL: URL) {
         self.sourceURL = sourceURL
         self.dataLoader = MediaDataLoader(sourceURL: sourceURL)
+        
     }
 }
 
