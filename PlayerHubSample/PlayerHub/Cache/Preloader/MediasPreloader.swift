@@ -92,15 +92,4 @@ extension MediasPreloader {
             }
         }
     }
-    private func suspendCurrent() {
-        
-    }
-    
-    private func resumeCurrent() {
-        
-    }
-    
-    private func cancelCurrent() {
-        
-    }
 }

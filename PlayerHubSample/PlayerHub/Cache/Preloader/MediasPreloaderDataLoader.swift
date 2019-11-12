@@ -87,7 +87,7 @@ extension MediasPreloaderDataLoader {
         defer {
             networkLock.unlock()
         }
-        
+        print("received response -> \(sourceURL)")
         if self.fileIO.contentInfo == nil {
             self.fileIO.write(response: response)
         }
@@ -99,6 +99,7 @@ extension MediasPreloaderDataLoader {
             networkLock.unlock()
         }
         
+        print("received data -> \(sourceURL)")
         self.fileIO.write(data: data)
     }
     
@@ -109,6 +110,8 @@ extension MediasPreloaderDataLoader {
         }
         self.fileIO.closeStream()
         
+        print("complted \(error) -> \(sourceURL)")
+        print(self.fileIO.videoURL)
         didCompleteHandler?(error)
     }
 }

@@ -24,14 +24,12 @@ class TestViewController: UIViewController {
         return temp
     }()
     
+    private let urls = DataCreator.createFeeds().map { (feed) -> URL in
+        return feed.videoURL
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        let videoURL = URL(string: "http://tb-video.bdstatic.com/tieba-smallvideo/14_f7c0c978a45c5078537c317be5154c6a.mp4")!
-        
-        
-        
         
         view.backgroundColor = UIColor.black
         
@@ -54,11 +52,14 @@ class TestViewController: UIViewController {
     
     
     @objc private func onTouch(startButton: UIButton) {
-        
+        if MediasPreloader.shared.pendingURLs.count == 0 {
+            MediasPreloader.shared.add(urls: urls)
+        }
+        MediasPreloader.shared.resume()
     }
     
     @objc private func onTouch(stopButton: UIButton) {
-        
+        MediasPreloader.shared.suspend()
     }
     
 
