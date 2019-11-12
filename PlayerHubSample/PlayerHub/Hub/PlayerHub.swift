@@ -47,8 +47,8 @@ extension PlayerHub {
         controller.playerView.player.play()
     }
 
-    func replace(with url: URL, coverUrl: URL?, placeholder: UIImage?) {
-        controller.replace(with: url, coverUrl: coverUrl, placeholder: placeholder)
+    func replace(with url: URL, next: URL?, coverUrl: URL?, placeholder: UIImage?) {
+        controller.replace(with: url, next: next, coverUrl: coverUrl, placeholder: placeholder)
     }
     
     func playerIsIn(container: UIView) -> Bool {

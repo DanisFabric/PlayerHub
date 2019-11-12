@@ -15,11 +15,16 @@ class DataDownloader: NSObject {
         var didReceiveDataHandler: ((Data) -> Void)?
         var didReceiveResponseHandler: ((URLResponse) -> Void)?
         
-        let dataTask: URLSessionDataTask
+        private(set) var dataTask: URLSessionDataTask
 
         var requestHash = 0
         
-        init(sourceURL: URL, offsetBytes: Int64, contentBytes: Int64?, session: URLSession) {
+        init(sourceURL: URL,
+             offsetBytes: Int64,
+             contentBytes: Int64?,
+             priority: Float,
+             session: URLSession) {
+            
             var request = URLRequest(url: sourceURL)
             if let contentBytes = contentBytes, contentBytes > 0 {
                 request.setValue("bytes=\(offsetBytes)-\(offsetBytes + contentBytes - 1)", forHTTPHeaderField: "Range")
@@ -29,6 +34,7 @@ class DataDownloader: NSObject {
             request.cachePolicy = .reloadIgnoringLocalCacheData
             
             dataTask = session.dataTask(with: request)
+            dataTask.priority = priority
         }
         
         // 暂停
@@ -56,11 +62,12 @@ class DataDownloader: NSObject {
     func download(from sourceURL: URL,
                   offsetBytes: Int64,
                   contentBytes: Int64?,
+                  priority: Float,
                   didReceiveResponseHandler: ((URLResponse) -> Void)?,
                   didReceiveDataHandler: ((Data) -> Void)?,
                   didCompleteHandler: ((Error?) -> Void)?) -> Task {
         
-        let task = Task(sourceURL: sourceURL, offsetBytes: offsetBytes, contentBytes: contentBytes, session: session)
+        let task = Task(sourceURL: sourceURL, offsetBytes: offsetBytes, contentBytes: contentBytes, priority: priority, session: session)
         task.didReceiveResponseHandler = didReceiveResponseHandler
         task.didReceiveDataHandler = didReceiveDataHandler
         task.didCompleteHandler = didCompleteHandler

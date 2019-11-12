@@ -116,7 +116,8 @@ class Player: NSObject {
 
     // Cache
     var isCacheEnable = true
-    private var resourceLoaderDelegate: ResourceLoaderProxy?
+    private var resourceLoaderProxy: ResourceLoaderProxy?
+    private var resourcePreloader: MediasPreloaderDataLoader?
     
     var isPlaying: Bool {
         return player.rate != 0
@@ -143,18 +144,30 @@ extension Player {
     }
     
     func replace(with url: URL) {
+        replace(with: url, preload: nil)
+    }
+    
+    func replace(with url: URL, preload nextURL: URL?) {
         if currentItem != nil {
             stop()
         }
         
-        resourceLoaderDelegate?.cancel()
-        resourceLoaderDelegate = nil
+        resourceLoaderProxy?.cancel()
+        resourceLoaderProxy = nil
+        
+        resourcePreloader?.cancel()
+        resourcePreloader = nil
         
         let asset: AVURLAsset
         if isCacheEnable {
             asset = AVURLAsset(url: CacheURL.addCacheScheme(from: url))
-            resourceLoaderDelegate = ResourceLoaderProxy()
-            asset.resourceLoader.setDelegate(resourceLoaderDelegate!, queue: resourceLoaderDelegateQueue)
+            resourceLoaderProxy = ResourceLoaderProxy()
+            asset.resourceLoader.setDelegate(resourceLoaderProxy!, queue: resourceLoaderDelegateQueue)
+            
+            if let nextURL = nextURL, nextURL != url {
+                resourcePreloader = MediasPreloaderDataLoader(sourceURL: nextURL)
+                resourcePreloader?.resume()
+            }
         } else {
             asset = AVURLAsset(url: url)
         }
@@ -164,6 +177,8 @@ extension Player {
         addItemObservers()
         
         player.replaceCurrentItem(with: currentItem)
+        
+        
     }
     
     func stop() {

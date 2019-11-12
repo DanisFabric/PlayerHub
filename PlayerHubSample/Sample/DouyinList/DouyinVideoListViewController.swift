@@ -126,9 +126,14 @@ extension DouyinVideoListViewController: UITableViewDataSource, UITableViewDeleg
         
         let feed = feeds[currentIndexPath.row]
         
+        var nextFeed: Feed?
+        if currentIndexPath.row + 1 < feeds.count {
+            nextFeed = feeds[currentIndexPath.row + 1]
+        }
+        
         PlayerHub.shared.stop()
         PlayerHub.shared.addPlayer(to: cell.videoContainer)
-        PlayerHub.shared.replace(with: feed.videoURL, coverUrl: feed.imageURL, placeholder: nil)
+        PlayerHub.shared.replace(with: feed.videoURL, next: nextFeed?.videoURL, coverUrl: feed.imageURL, placeholder: nil)
         PlayerHub.shared.play()
     }
 }

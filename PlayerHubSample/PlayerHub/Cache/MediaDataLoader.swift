@@ -32,7 +32,7 @@ class MediaDataLoader {
             } else {
                 // 本地文件未下载完成，断点续传
                 fileIO.openStream()
-                dataTask = DataDownloader.shared.download(from: sourceURL, offsetBytes: fileIO.originalFileSize, contentBytes: contentInfo.contentLength - fileIO.originalFileSize, didReceiveResponseHandler: { (response) in
+                dataTask = DataDownloader.shared.download(from: sourceURL, offsetBytes: fileIO.originalFileSize, contentBytes: contentInfo.contentLength - fileIO.originalFileSize, priority: URLSessionTask.highPriority, didReceiveResponseHandler: { (response) in
                     self.onReceived(response: response)
                 }, didReceiveDataHandler: { (data) in
                     self.onReceived(data: data)
@@ -45,7 +45,7 @@ class MediaDataLoader {
             assert(fileIO.originalFileSize == 0, "无contentInfo的情况下，不可能下载了文件数据")
             
             fileIO.openStream()
-            dataTask = DataDownloader.shared.download(from: sourceURL, offsetBytes: 0, contentBytes: nil, didReceiveResponseHandler: { (response) in
+            dataTask = DataDownloader.shared.download(from: sourceURL, offsetBytes: 0, contentBytes: nil, priority: URLSessionTask.highPriority, didReceiveResponseHandler: { (response) in
                 self.onReceived(response: response)
             }, didReceiveDataHandler: { (data) in
                 self.onReceived(data: data)

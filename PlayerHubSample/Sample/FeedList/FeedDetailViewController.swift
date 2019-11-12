@@ -53,10 +53,8 @@ class FeedDetailViewController: UITableViewController {
     
     private func playCurrentFeed() {
         PlayerHub.shared.addPlayer(to: self.headerView.videoContainer)
-        PlayerHub.shared.replace(with: self.feed.videoURL, coverUrl: self.feed.imageURL, placeholder: nil)
+        PlayerHub.shared.replace(with: self.feed.videoURL, next: nil, coverUrl: self.feed.imageURL, placeholder: nil)
         PlayerHub.shared.play()
-        
-//        PlayerHub.shared.movePlayer(to: <#T##UIView#>)
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {

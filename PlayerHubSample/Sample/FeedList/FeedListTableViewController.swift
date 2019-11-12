@@ -44,7 +44,7 @@ class FeedListTableViewController: UITableViewController {
             PlayerHub.shared.stop()
             PlayerHub.shared.removePlayer()
             PlayerHub.shared.addPlayer(to: cell.videoContainer)
-            PlayerHub.shared.replace(with: current.videoURL, coverUrl: current.imageURL, placeholder: nil)
+            PlayerHub.shared.replace(with: current.videoURL, next: nil, coverUrl: current.imageURL, placeholder: nil)
             PlayerHub.shared.play()
         }
         

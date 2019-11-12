@@ -45,8 +45,8 @@ class DouyinPlayerController: PlayerControllable {
         }
     }
     
-    func replace(with url: URL, coverUrl: URL?, placeholder: UIImage?) {
-        playerView.player.replace(with: url)
+    func replace(with url: URL, next: URL?, coverUrl: URL?, placeholder: UIImage?) {
+        playerView.player.replace(with: url, preload: next)
         controlView.configure(cover: coverUrl, placeholder: placeholder)
     }
 }

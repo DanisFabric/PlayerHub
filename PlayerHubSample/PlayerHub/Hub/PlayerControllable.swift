@@ -13,5 +13,5 @@ protocol PlayerControllable {
     var playerView: PlayerView { get }
     var contentView: UIView { get }
     
-    func replace(with url: URL, coverUrl: URL?, placeholder: UIImage?)
+    func replace(with url: URL, next: URL?, coverUrl: URL?, placeholder: UIImage?)
 }

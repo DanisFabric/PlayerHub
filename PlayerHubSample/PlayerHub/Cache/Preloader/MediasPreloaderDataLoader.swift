@@ -36,7 +36,7 @@ class MediasPreloaderDataLoader {
             } else {
                 // 本地数据不足，下载剩余部分
                 fileIO.openStream()
-                dataTask = DataDownloader.shared.download(from: sourceURL, offsetBytes: fileIO.originalFileSize, contentBytes: expectedSize - fileIO.originalFileSize, didReceiveResponseHandler: { (response) in
+                dataTask = DataDownloader.shared.download(from: sourceURL, offsetBytes: fileIO.originalFileSize, contentBytes: expectedSize - fileIO.originalFileSize, priority: URLSessionTask.lowPriority, didReceiveResponseHandler: { (response) in
                     self.onReceived(response: response)
                 }, didReceiveDataHandler: { (data) in
                     self.onReceived(data: data)
@@ -49,7 +49,7 @@ class MediasPreloaderDataLoader {
             assert(fileIO.originalFileSize == 0, "无contentInfo的情况下，不可能下载了文件数据")
             
             fileIO.openStream()
-            dataTask = DataDownloader.shared.download(from: sourceURL, offsetBytes: 0, contentBytes: expectedSize, didReceiveResponseHandler: { (response) in
+            dataTask = DataDownloader.shared.download(from: sourceURL, offsetBytes: 0, contentBytes: expectedSize, priority: URLSessionTask.lowPriority, didReceiveResponseHandler: { (response) in
                 self.onReceived(response: response)
             }, didReceiveDataHandler: { (data) in
                 self.onReceived(data: data)
@@ -69,6 +69,8 @@ class MediasPreloaderDataLoader {
     
     func cancel() {
         dataTask?.cancel()
+        
+        fileIO.closeStream()
     }
     
     var isRunning: Bool {
@@ -110,8 +112,7 @@ extension MediasPreloaderDataLoader {
         }
         self.fileIO.closeStream()
         
-        print("complted \(error) -> \(sourceURL)")
-        print(self.fileIO.videoURL)
+        print("completed \(error) -> \(sourceURL)")
         didCompleteHandler?(error)
     }
 }
