@@ -35,6 +35,10 @@ class DouyinVideoListViewController: UIViewController {
         
         return temp
     }()
+    
+    deinit {
+        PlayerHub.shared.clearRegistration()
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()

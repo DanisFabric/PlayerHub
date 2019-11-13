@@ -11,7 +11,7 @@ import UIKit
 class PlayerHub {
     static let shared = PlayerHub()
     
-    var controller: PlayerControllable!
+    private(set) var controller: PlayerControllable!
     
     private init() {
         
@@ -19,6 +19,12 @@ class PlayerHub {
     
     func register(controller: PlayerControllable) {
         self.controller = controller
+    }
+    
+    func clearRegistration() {
+        self.controller.playerView.player.stop()
+        self.controller.playerView.removeFromSuperview()
+        self.controller = nil
     }
     
 }

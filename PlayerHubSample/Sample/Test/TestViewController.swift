@@ -52,14 +52,11 @@ class TestViewController: UIViewController {
     
     
     @objc private func onTouch(startButton: UIButton) {
-        if MediasPreloader.shared.pendingURLs.count == 0 {
-            MediasPreloader.shared.add(urls: urls)
-        }
-        MediasPreloader.shared.resume()
+        
     }
     
     @objc private func onTouch(stopButton: UIButton) {
-        MediasPreloader.shared.suspend()
+        
     }
     
 

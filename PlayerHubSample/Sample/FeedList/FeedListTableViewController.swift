@@ -12,6 +12,10 @@ class FeedListTableViewController: UITableViewController {
 
     var feeds = DataCreator.createFeeds()
     
+    deinit {
+        PlayerHub.shared.clearRegistration()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 

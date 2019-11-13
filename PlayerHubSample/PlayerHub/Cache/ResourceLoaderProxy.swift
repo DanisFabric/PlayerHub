@@ -25,8 +25,6 @@ class ResourceLoaderProxy: NSObject, AVAssetResourceLoaderDelegate {
         let sourceUrl = CacheURL.removeCacheScheme(from: originURL)
         
         if loader == nil {
-            MediasPreloader.shared.cancel(url: sourceUrl)
-            
             loader = MediaLoader(sourceURL: sourceUrl)
         }
         loader?.add(request: loadingRequest)

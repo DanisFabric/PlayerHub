@@ -44,7 +44,6 @@
 		B7AA179F23769C8100A75A91 /* String+MD5.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7AA179E23769C8100A75A91 /* String+MD5.swift */; };
 		B7DF11132368165F006A0BC6 /* ResourceLoaderProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7DF11122368165F006A0BC6 /* ResourceLoaderProxy.swift */; };
 		B7DF111523681E85006A0BC6 /* CacheURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7DF111423681E85006A0BC6 /* CacheURL.swift */; };
-		B7E2F87F237953B400B60658 /* MediasPreloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7E2F87E237953B400B60658 /* MediasPreloader.swift */; };
 		B7E2F883237956AB00B60658 /* MediasPreloaderDataLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7E2F882237956AB00B60658 /* MediasPreloaderDataLoader.swift */; };
 		B7E8B701235461380076A837 /* PlayerHub.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7E8B700235461380076A837 /* PlayerHub.swift */; };
 		B7F938CC237A56F000B66A26 /* Array+Unique.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F938CB237A56F000B66A26 /* Array+Unique.swift */; };
@@ -92,7 +91,6 @@
 		B7AA179E23769C8100A75A91 /* String+MD5.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+MD5.swift"; sourceTree = "<group>"; };
 		B7DF11122368165F006A0BC6 /* ResourceLoaderProxy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceLoaderProxy.swift; sourceTree = "<group>"; };
 		B7DF111423681E85006A0BC6 /* CacheURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheURL.swift; sourceTree = "<group>"; };
-		B7E2F87E237953B400B60658 /* MediasPreloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediasPreloader.swift; sourceTree = "<group>"; };
 		B7E2F882237956AB00B60658 /* MediasPreloaderDataLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediasPreloaderDataLoader.swift; sourceTree = "<group>"; };
 		B7E8B700235461380076A837 /* PlayerHub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerHub.swift; sourceTree = "<group>"; };
 		B7F938CB237A56F000B66A26 /* Array+Unique.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Unique.swift"; sourceTree = "<group>"; };
@@ -180,10 +178,10 @@
 		B727A130234F0C890026B2C1 /* PlayerHub */ = {
 			isa = PBXGroup;
 			children = (
+				B727A131234F0C900026B2C1 /* Player */,
 				B7E8B6FF2354612C0076A837 /* Hub */,
 				B727A136235024340026B2C1 /* UI */,
 				B7DF1111236813D1006A0BC6 /* Cache */,
-				B727A131234F0C900026B2C1 /* Player */,
 			);
 			path = PlayerHub;
 			sourceTree = "<group>";
@@ -329,7 +327,6 @@
 		B7E2F87D2379538000B60658 /* Preloader */ = {
 			isa = PBXGroup;
 			children = (
-				B7E2F87E237953B400B60658 /* MediasPreloader.swift */,
 				B7E2F882237956AB00B60658 /* MediasPreloaderDataLoader.swift */,
 			);
 			path = Preloader;
@@ -499,7 +496,6 @@
 				B7E2F883237956AB00B60658 /* MediasPreloaderDataLoader.swift in Sources */,
 				B7890C5A2361792C00C0B4B9 /* FeedListTableViewController.swift in Sources */,
 				B71C8829236289E500DF2D3E /* FeedDetailHeaderView.swift in Sources */,
-				B7E2F87F237953B400B60658 /* MediasPreloader.swift in Sources */,
 				B727A135234F0CAD0026B2C1 /* PlayerView.swift in Sources */,
 				B7890C5F2361797A00C0B4B9 /* FeedDetailViewController.swift in Sources */,
 				B716A9A9235E9C77005303A8 /* DataCreator.swift in Sources */,
