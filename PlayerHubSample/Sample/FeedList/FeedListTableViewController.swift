@@ -8,9 +8,10 @@
 
 import UIKit
 
-class FeedListTableViewController: UITableViewController {
-
+class FeedListTableViewController: UITableViewController, PlayerMovingTransitionVideoContainer {
     var feeds = DataCreator.createFeeds()
+    
+    var videoContainer: UIView?
     
     deinit {
         PlayerHub.shared.clearRegistration()
@@ -25,7 +26,6 @@ class FeedListTableViewController: UITableViewController {
         tableView.register(FeedCell.self, forCellReuseIdentifier: "ItemCell")
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 200
-        
     }
 
     // MARK: - Table view data source
@@ -50,6 +50,8 @@ class FeedListTableViewController: UITableViewController {
             PlayerHub.shared.addPlayer(to: cell.videoContainer)
             PlayerHub.shared.replace(with: current.videoURL, next: nil, coverUrl: current.imageURL, placeholder: nil)
             PlayerHub.shared.play()
+            
+            self.videoContainer = cell.videoContainer
         }
         
         return cell
@@ -57,7 +59,7 @@ class FeedListTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let videoContainer = (cell as! FeedCell).videoContainer
-        if PlayerHub.shared.playerIsIn(container: videoContainer) {
+        if PlayerHub.shared.isPlayer(in: videoContainer) {
             PlayerHub.shared.stop()
             PlayerHub.shared.removePlayer()
         }
@@ -68,7 +70,7 @@ class FeedListTableViewController: UITableViewController {
         let detailVC = FeedDetailViewController(feed: feed)
         
         let videoContainer = (tableView.cellForRow(at: indexPath) as! FeedCell).videoContainer
-        if PlayerHub.shared.playerIsIn(container: videoContainer) {
+        if PlayerHub.shared.isPlayer(in: videoContainer) {
             detailVC.isContinued = true
         } else {
             detailVC.isContinued = false

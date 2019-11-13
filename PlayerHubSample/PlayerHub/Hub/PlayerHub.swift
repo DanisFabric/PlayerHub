@@ -57,7 +57,7 @@ extension PlayerHub {
         controller.replace(with: url, next: next, coverUrl: coverUrl, placeholder: placeholder)
     }
     
-    func playerIsIn(container: UIView) -> Bool {
+    func isPlayer(in container: UIView) -> Bool {
         return controller.contentView.superview == container
     }
 }

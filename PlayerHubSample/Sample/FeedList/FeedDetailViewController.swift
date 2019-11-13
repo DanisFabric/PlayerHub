@@ -47,6 +47,10 @@ class FeedDetailViewController: UITableViewController {
         }
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
@@ -73,5 +77,11 @@ class FeedDetailViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         return UITableViewCell()
+    }
+}
+
+extension FeedDetailViewController: PlayerMovingTransitionVideoContainer {
+    var videoContainer: UIView? {
+        return headerView.videoContainer
     }
 }

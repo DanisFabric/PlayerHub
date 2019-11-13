@@ -47,6 +47,7 @@
 		B7E2F883237956AB00B60658 /* MediasPreloaderDataLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7E2F882237956AB00B60658 /* MediasPreloaderDataLoader.swift */; };
 		B7E8B701235461380076A837 /* PlayerHub.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7E8B700235461380076A837 /* PlayerHub.swift */; };
 		B7F938CC237A56F000B66A26 /* Array+Unique.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F938CB237A56F000B66A26 /* Array+Unique.swift */; };
+		B7F938D7237BA89000B66A26 /* PlayerMovingTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F938D6237BA89000B66A26 /* PlayerMovingTransition.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -94,6 +95,7 @@
 		B7E2F882237956AB00B60658 /* MediasPreloaderDataLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediasPreloaderDataLoader.swift; sourceTree = "<group>"; };
 		B7E8B700235461380076A837 /* PlayerHub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerHub.swift; sourceTree = "<group>"; };
 		B7F938CB237A56F000B66A26 /* Array+Unique.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Unique.swift"; sourceTree = "<group>"; };
+		B7F938D6237BA89000B66A26 /* PlayerMovingTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerMovingTransition.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -257,6 +259,7 @@
 		B742D007236050C60074D1DE /* Kit */ = {
 			isa = PBXGroup;
 			children = (
+				B7F938D5237BA86F00B66A26 /* Transition */,
 				B727A13D235029BC0026B2C1 /* BufferedSlider.swift */,
 				B71C88312362A42C00DF2D3E /* DouyinLoadingView.swift */,
 			);
@@ -339,6 +342,14 @@
 				B721358323604AF70069BB38 /* PlayerControllable.swift */,
 			);
 			path = Hub;
+			sourceTree = "<group>";
+		};
+		B7F938D5237BA86F00B66A26 /* Transition */ = {
+			isa = PBXGroup;
+			children = (
+				B7F938D6237BA89000B66A26 /* PlayerMovingTransition.swift */,
+			);
+			path = Transition;
 			sourceTree = "<group>";
 		};
 		C6BB61431EBF07A5115DFF68 /* Frameworks */ = {
@@ -493,6 +504,7 @@
 				B721358623604E1F0069BB38 /* NormalPlayerController.swift in Sources */,
 				B71C882B2362952F00DF2D3E /* FeedTestHeaderView.swift in Sources */,
 				B727A13E235029BC0026B2C1 /* BufferedSlider.swift in Sources */,
+				B7F938D7237BA89000B66A26 /* PlayerMovingTransition.swift in Sources */,
 				B7E2F883237956AB00B60658 /* MediasPreloaderDataLoader.swift in Sources */,
 				B7890C5A2361792C00C0B4B9 /* FeedListTableViewController.swift in Sources */,
 				B71C8829236289E500DF2D3E /* FeedDetailHeaderView.swift in Sources */,
