@@ -12,6 +12,8 @@ class FeedDetailViewController: UITableViewController {
 
     var headerView: FeedDetailHeaderView!
     
+    var isContinued = false
+    
     private let feed: Feed
     init(feed: Feed) {
         self.feed = feed
@@ -52,9 +54,13 @@ class FeedDetailViewController: UITableViewController {
     }
     
     private func playCurrentFeed() {
-        PlayerHub.shared.addPlayer(to: self.headerView.videoContainer)
-        PlayerHub.shared.replace(with: self.feed.videoURL, next: nil, coverUrl: self.feed.imageURL, placeholder: nil)
-        PlayerHub.shared.play()
+        if isContinued {
+            PlayerHub.shared.movePlayer(to: self.headerView.videoContainer)
+        } else {
+            PlayerHub.shared.addPlayer(to: self.headerView.videoContainer)
+            PlayerHub.shared.replace(with: self.feed.videoURL, next: nil, coverUrl: self.feed.imageURL, placeholder: nil)
+            PlayerHub.shared.play()
+        }
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {

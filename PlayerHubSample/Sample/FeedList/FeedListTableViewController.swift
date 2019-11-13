@@ -65,8 +65,17 @@ class FeedListTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let feed = feeds[indexPath.row]
-        
         let detailVC = FeedDetailViewController(feed: feed)
+        
+        let videoContainer = (tableView.cellForRow(at: indexPath) as! FeedCell).videoContainer
+        if PlayerHub.shared.playerIsIn(container: videoContainer) {
+            detailVC.isContinued = true
+        } else {
+            detailVC.isContinued = false
+            
+            PlayerHub.shared.stop()
+            PlayerHub.shared.removePlayer()
+        }
         navigationController?.pushViewController(detailVC, animated: true)
     }
 }

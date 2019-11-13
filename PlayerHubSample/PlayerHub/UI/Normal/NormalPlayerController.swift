@@ -156,6 +156,9 @@ extension NormalPlayerController {
     func replace(with url: URL, next: URL?, coverUrl: URL?, placeholder: UIImage?) {
         playerView.player.replace(with: url, preload: next)
         controlView.configure(cover: coverUrl, placeholder: placeholder)
+        controlView.configure(totalDuration: 0)
+        controlView.configure(playedDuration: 0)
+        controlView.configure(bufferedDuration: 0)
     }
     
     var gravity: Player.Gravity {
