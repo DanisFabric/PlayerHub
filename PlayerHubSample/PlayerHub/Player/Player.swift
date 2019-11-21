@@ -49,11 +49,6 @@ class Player: NSObject {
         }
     }
     
-    enum LoopMode {
-        case never
-        case always
-    }
-    
     // MARK: Callback
     var statusDidChangeHandler: ((Status) -> Void)?
     var playedDurationDidChangeHandler: ((TimeInterval, TimeInterval) -> Void)?
@@ -77,17 +72,11 @@ class Player: NSObject {
                 if status == .failed {
                     print("error -> \(error)")
                 }
-                
-                if status == .end && loopMode == .always {
-                    seek(to: 0)
-                    play()
-                }
             }
         }
     }
     private(set) var error: Error?
     
-    var loopMode = LoopMode.never
     var gravity = Gravity.scaleAspectFit {
         didSet {
             playerLayer?.videoGravity = gravity.videoGravity

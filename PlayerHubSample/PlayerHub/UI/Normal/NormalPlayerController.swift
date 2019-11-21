@@ -59,6 +59,10 @@ class NormalPlayerController: PlayerControllable {
         
         
         controlView.didTouchToPlayHandler = { [unowned self] in
+            if self.playerView.player.status == .end {
+                self.playerView.player.seek(to: 0)
+                self.playerView.player.pause()
+            }
             self.playerView.player.play()
         }
         
