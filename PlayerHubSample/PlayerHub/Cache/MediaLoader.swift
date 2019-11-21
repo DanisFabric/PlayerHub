@@ -14,6 +14,7 @@ protocol MediaLoaderRequestable: NSObject {
     var requestedLength: Int64 { get }
     var currentOffset: Int64 { get }
     var isFinished: Bool { get }
+    var isContentInfoReuqest: Bool { get }
     
     func write(response: URLResponse)
     func write(contentInfo: MediaContentInfo)
@@ -22,7 +23,6 @@ protocol MediaLoaderRequestable: NSObject {
 }
 
 class MediaLoader {
-    
     private(set) var requests = [MediaLoaderRequestable]()
     
     private var tasks = [DataDownloader.Task]()
@@ -42,6 +42,7 @@ class MediaLoader {
 extension MediaLoader {
     func add(request: MediaLoaderRequestable) {
         queue.async {
+            
             if self.dataLoader.isReachable(output: request) {
                 self.dataLoader.resumeDataTask()
                 self.dataLoader.add(output: request)
@@ -79,7 +80,6 @@ extension MediaLoader {
                     self.tasks.remove(at: index).cancel()
                 }
             }
-            
         }
         
     }

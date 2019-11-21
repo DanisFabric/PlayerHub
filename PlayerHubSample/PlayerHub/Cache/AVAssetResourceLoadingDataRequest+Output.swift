@@ -33,6 +33,10 @@ extension AVAssetResourceLoadingRequest: MediaLoaderRequestable {
         return requestedOffset + receivedBytesCount
     }
     
+    var isContentInfoReuqest: Bool {
+        return requestedLength == 2
+    }
+    
     func write(contentInfo: MediaContentInfo) {
         contentInformationRequest?.isByteRangeAccessSupported = contentInfo.isByteRangeAccessSupported
         contentInformationRequest?.contentLength = contentInfo.contentLength

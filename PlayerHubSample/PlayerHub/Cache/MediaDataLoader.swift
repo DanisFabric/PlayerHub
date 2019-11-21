@@ -66,11 +66,12 @@ class MediaDataLoader {
     func cancelDataTask() {
         dataTask?.cancel()
     }
-    
-    
 }
 
 extension MediaDataLoader {
+    func isFileLoadable() -> Bool {
+        return false
+    }
     func isReachable(output: MediaLoaderRequestable) -> Bool {
         // 在文件的500KB内都认为是可以触达的
         return output.requestedOffset <= fileIO.currentFileSize + 512 * 1024
