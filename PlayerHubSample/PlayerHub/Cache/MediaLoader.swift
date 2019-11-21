@@ -47,23 +47,19 @@ extension MediaLoader {
                 self.dataLoader.add(output: request)
             } else {
                 print("不在文件中- \(request.requestedOffset)")
-                self.dataLoader.resumeDataTask()
-                self.dataLoader.add(output: request)
                 
-//                self.dataLoader.suspendDataTask()
-//
-//                let task = DataDownloader.shared.download(from: self.sourceURL, offsetBytes: request.requestedOffset, contentBytes: request.requestedLength, didReceiveResponseHandler: { (response) in
-//                    request.write(response: response)
-//                }, didReceiveDataHandler: {(data) in
-//                    request.write(data: data)
-//                }, didCompleteHandler: { error in
-//                    request.writeCompletion(error: error)
-//
-//                    self.remove(request: request)
-//                })
-//                task.requestHash = request.hash
-//                task.resume()
-//                self.tasks.append(task)
+                self.dataLoader.suspendDataTask()
+                
+                let task = DataDownloader.shared.download(from: self.sourceURL, offsetBytes: request.requestedOffset, contentBytes: request.requestedLength, priority: URLSessionTask.highPriority, didReceiveResponseHandler: { (response) in
+                    request.write(response: response)
+                }, didReceiveDataHandler: { (data) in
+                    request.write(data: data)
+                }) { (error) in
+                    request.writeCompletion(error: error)
+                }
+                task.requestHash = request.hash
+                task.resume()
+                self.tasks.append(task)
             }
         }
         
@@ -74,15 +70,15 @@ extension MediaLoader {
         queue.async {
             self.dataLoader.remove(output: request)
             
-//            if self.dataLoader.contains(output: request) {
-//                self.dataLoader.remove(output: request)
-//            } else {
-//                if let index = self.tasks.firstIndex(where: { (task) -> Bool in
-//                    return task.requestHash == request.hash
-//                }) {
-//                    self.tasks.remove(at: index).cancel()
-//                }
-//            }
+            if self.dataLoader.contains(output: request) {
+                self.dataLoader.remove(output: request)
+            } else {
+                if let index = self.tasks.firstIndex(where: { (task) -> Bool in
+                    return task.requestHash == request.hash
+                }) {
+                    self.tasks.remove(at: index).cancel()
+                }
+            }
             
         }
         
@@ -90,9 +86,9 @@ extension MediaLoader {
     
     func cancel() {
         queue.async {
-//            self.tasks.forEach { (task) in
-//                task.cancel()
-//            }
+            self.tasks.forEach { (task) in
+                task.cancel()
+            }
             self.tasks.removeAll()
             self.dataLoader.cancel()
         }
